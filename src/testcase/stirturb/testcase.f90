@@ -251,7 +251,7 @@ SUBROUTINE TestcaseSource(Ut)
 
     REAL :: mach_avg, force
     INTEGER :: wait_time_steps = 1
-    INTEGER :: time_steps_since_last_forcing
+    INTEGER :: time_steps_since_last_forcing = 0
 
     if (.not. st_active) return
 
@@ -264,8 +264,8 @@ SUBROUTINE TestcaseSource(Ut)
             !!force = 1.e-3/MERGE(1.e-5,dt, dt < 1.e-5) * st_force_base
             force = st_force_base
 
-            if (mach_avg .gt. 0.99*st_mach) then
-                force = force * abs(mach_avg-st_mach) / (0.02*st_mach)
+            if (mach_avg .gt. 0.95*st_mach) then
+                force = force * abs(mach_avg-st_mach) / (0.08*st_mach)
             end if
 
             call OU_time_step()
@@ -275,6 +275,7 @@ SUBROUTINE TestcaseSource(Ut)
 
             time_steps_since_last_forcing = 1
         ELSE
+            force = 0.0
             if (st_stop_at_mach) st_active = .FALSE.
             SWRITE(UNIT_stdOut,'(A,5(1X,ES20.8))') 'NOF: ', t, dt, force, mach_avg
         end if
@@ -532,9 +533,6 @@ SUBROUTINE AnalyzeTestcase(simtime)
     INTEGER, PARAMETER :: sums_LEN = 99 !! plenty enough
     REAL    :: sums(1:sums_LEN) !! accumulators
     REAL    :: recv(1:sums_LEN) !! accumulators
-
-
-    RETURN
 
     sums(:) = 0.0
 

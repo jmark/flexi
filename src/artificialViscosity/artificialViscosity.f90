@@ -151,7 +151,7 @@ SUBROUTINE CalcArtificialViscosity(U)
         LU_NM1  = LUM1-LUM2
 
         !! DOF energy indicator
-        eta_dof = LOG10(MAX(LU_N/LU,LU_NM1/LUM1))
+        eta_dof = LOG10(MAX( LU_N/(LU + EPSILON(0.)), LU_NM1/(LUM1 + EPSILON(0.)) ) + EPSILON(0.))
 
         IF (eta_dof.GE.eta_max) THEN
             artvisc%nu(ii) = eps0
