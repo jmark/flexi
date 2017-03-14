@@ -12,3 +12,4 @@ ini/*
 lib/*
 share/*
 builds/*
+ctags.txt
