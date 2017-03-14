@@ -60,7 +60,8 @@
 ! assume that both prim and cons vars are filled
 #define VELOCITY_HE(UE)                (UE(MOMV)*UE(SRHO))
 #define PRESSURE_HE(UE)                (KappaM1*(UE(ENER)-0.5*DOT_PRODUCT(UE(VELV),UE(MOMV))))
-#define SPEEDOFSOUND_HE(UE)            (SQRT(Kappa*UE(PRES)*UE(SRHO)))
+!!#define SPEEDOFSOUND_HE(UE)            (SQRT(Kappa*UE(PRES)*UE(SRHO)))
+#define SPEEDOFSOUND_HE(UE)            (SQRT(Kappa*MERGE(10e-8, UE(PRES),UE(PRES) < 1e-8)*MERGE(1e8,UE(SRHO),UE(DENS) < 1e-8)))
 #define TOTALENERGY_HE(UE)             (UE(ENER)*UE(SRHO))
 #define TOTALENTHALPY_HE(UE)           ((UE(ENER)+UE(PRES))*UE(SRHO))
 #define TEMPERATURE_HE(UE)             (UE(PRES)*UE(SRHO)/R)
