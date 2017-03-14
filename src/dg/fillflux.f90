@@ -70,6 +70,8 @@ USE MOD_Mesh_Vars,       ONLY: nBCSides
 USE MOD_Riemann,         ONLY: ViscousFlux
 USE MOD_Lifting_Vars,    ONLY: gradUx_master ,gradUy_master ,gradUz_master ,gradUx_slave,gradUy_slave,gradUz_slave
 USE MOD_Lifting_Vars,    ONLY: gradUx_masterO,gradUy_masterO,gradUz_masterO
+USE Mod_ArtificialViscosity, ONLY: artvisc 
+USE Mod_Mesh_vars,  ONLY: SideToElem
 #endif /*PARABOLIC*/
 #ifdef EDDYVISCOSITY
 USE MOD_EddyVisc_Vars,   ONLY: DeltaS_master,DeltaS_slave,SGS_Ind_master,SGS_Ind_slave
@@ -200,7 +202,10 @@ DO SideID=firstSideID_wo_BC,lastSideID
 
 #if PARABOLIC
   ! 1.2) Fill viscous flux for non-BC sides
-  CALL ViscousFlux(PP_N,FluxV_loc, UPrim_master(:,:,:,SideID), UPrim_slave  (:,:,:,SideID), &
+
+    artvisc%elemid = SideToElem(S2E_ELEM_ID,sideID)
+
+    CALL ViscousFlux(PP_N,FluxV_loc, UPrim_master(:,:,:,SideID), UPrim_slave  (:,:,:,SideID), &
       gradUx_master(:,:,:,SideID),gradUy_master(:,:,:,SideID), gradUz_master(:,:,:,SideID),&
       gradUx_slave (:,:,:,SideID),gradUy_slave (:,:,:,SideID), gradUz_slave (:,:,:,SideID),&
       NormVec(:,:,:,FV_Elems_Max(SideID),SideID)&

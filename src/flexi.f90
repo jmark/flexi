@@ -31,6 +31,7 @@ USE MOD_Testcase,          ONLY:DefineParametersTestcase
 USE MOD_DG,                ONLY:InitDG,FinalizeDG
 #if PARABOLIC
 USE MOD_Lifting,           ONLY:DefineParametersLifting,InitLifting,FinalizeLifting
+USE MOD_ArtificialViscosity,    ONLY:DefineParametersArtificialViscosity,InitArtificialViscosity,FinalizeArtificialViscosity
 #endif /*PARABOLIC*/
 USE MOD_Filter,            ONLY:DefineParametersFilter,InitFilter,FinalizeFilter
 USE MOD_Overintegration,   ONLY:DefineParametersOverintegration,InitOverintegration,FinalizeOverintegration
@@ -56,6 +57,9 @@ USE MOD_EddyVisc,          ONLY:DefineParametersEddyVisc
 USE MOD_GenerateUnittestReferenceData
 USE MOD_Restart_Vars      ,ONLY:RestartFile
 USE MOD_StringTools       ,ONLY:STRICMP, GetFileExtension
+
+USE MOD_Cooling,          ONLY: DefineParametersCooling, InitCooling, FinalizeCooling
+
 IMPLICIT NONE
 !----------------------------------------------------------------------------------------------------------------------------------
 ! LOCAL VARIABLES
@@ -94,11 +98,13 @@ CALL DefineParametersTestcase()
 CALL DefineParametersFilter()
 CALL DefineParametersOverintegration()
 CALL DefineParametersIndicator()
+CALL DefineParametersCooling()
 #if FV_ENABLED
 CALL DefineParametersFV()
 #endif
 #if PARABOLIC
 CALL DefineParametersLifting ()
+CALL DefineParametersArtificialViscosity ()
 #endif /*PARABOLIC*/
 #ifdef EDDYVISCOSITY
 CALL DefineParametersEddyVisc()
@@ -165,11 +171,13 @@ CALL InitMPIvars()
 #endif
 CALL InitEquation()
 CALL InitDG()
+CALL InitCooling()
 #if FV_ENABLED
 CALL InitFV()
 #endif
 #if PARABOLIC
 CALL InitLifting()
+CALL InitArtificialViscosity()
 #endif /*PARABOLIC*/
 CALL InitSponge()
 CALL InitTimeDisc()
@@ -197,10 +205,12 @@ CALL FinalizeRecordPoints()
 CALL FinalizeAnalyze()
 #if PARABOLIC
 CALL FinalizeLifting()
+CALL FinalizeArtificialViscosity()
 #endif /*PARABOLIC*/
 #if FV_ENABLED
 CALL FinalizeFV()
 #endif
+CALL FinalizeCooling()
 CALL FinalizeDG()
 CALL FinalizeEquation()
 CALL FinalizeInterpolation()

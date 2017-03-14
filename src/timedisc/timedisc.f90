@@ -162,6 +162,9 @@ USE MOD_Indicator           ,ONLY: doCalcIndicator,CalcIndicator
 USE MOD_FV
 #endif
 use MOD_IO_HDF5
+
+USE MOD_Cooling             ,ONLY: cooling, ApplyCooling
+
 IMPLICIT NONE
 !----------------------------------------------------------------------------------------------------------------------------------
 ! INPUT/OUTPUT VARIABLES
@@ -263,10 +266,12 @@ CALL FV_Info(1_8)
 #endif
 SWRITE(UNIT_StdOut,*)'CALCULATION RUNNING...'
 
-
 ! Run computation
 CalcTimeStart=FLEXITIME()
 DO
+
+  if (cooling%enabled) call ApplyCooling()
+
   IF(doCalcIndicator) CALL CalcIndicator(U,t)
 #if FV_ENABLED
   CALL FV_Switch(AllowToDG=(nCalcTimestep.LT.1))
@@ -400,6 +405,11 @@ USE MOD_Indicator    ,ONLY: doCalcIndicator,CalcIndicator
 USE MOD_FV           ,ONLY: FV_Switch
 USE MOD_FV_Vars      ,ONLY: FV_toDGinRK
 #endif
+
+#if PARABOLIC
+USE MOD_ArtificialViscosity,ONLY: artvisc, CalcArtificialViscosity
+#endif
+
 IMPLICIT NONE
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! INPUT/OUTPUT VARIABLES
@@ -421,6 +431,9 @@ CALL DGTimeDerivative_weakForm(tStage)
 CALL VCopy(nTotalU,Ut_temp,Ut)               !Ut_temp = Ut
 CALL VAXPBY(nTotalU,U,Ut,ConstIn=b_dt(1))    !U       = U + Ut*b_dt(1)
 
+#if PARABOLIC
+IF(artvisc%enabled) call CalcArtificialViscosity(U)
+#endif
 
 ! Following steps
 DO iStage=2,nRKStages
@@ -433,6 +446,9 @@ DO iStage=2,nRKStages
   CALL DGTimeDerivative_weakForm(tStage)
   CALL VAXPBY(nTotalU,Ut_temp,Ut,ConstOut=-RKA(iStage)) !Ut_temp = Ut - Ut_temp*RKA(iStage)
   CALL VAXPBY(nTotalU,U,Ut_temp,ConstIn =b_dt(iStage))  !U       = U + Ut_temp*b_dt(iStage)
+  #if PARABOLIC
+  IF(artvisc%enabled) call CalcArtificialViscosity(U)
+  #endif
 END DO
 CurrentStage=1
 
@@ -460,6 +476,12 @@ USE MOD_Indicator    ,ONLY: doCalcIndicator,CalcIndicator
 USE MOD_FV           ,ONLY: FV_Switch
 USE MOD_FV_Vars      ,ONLY: FV_toDGinRK
 #endif
+
+#if PARABOLIC
+USE MOD_ArtificialViscosity,ONLY: artvisc, CalcArtificialViscosity
+#endif
+
+
 IMPLICIT NONE
 !-----------------------------------------------------------------------------------------------------------------------------------
 ! INPUT/OUTPUT VARIABLES
@@ -486,6 +508,11 @@ CALL VCopy(nTotalU,S2,U)                       !S2=U
 CALL DGTimeDerivative_weakForm(t)
 CALL VAXPBY(nTotalU,U,Ut,ConstIn=b_dt(1))      !U      = U + Ut*b_dt(1)
 
+#if PARABOLIC
+IF(artvisc%enabled) call CalcArtificialViscosity(U)
+#endif
+
+
 DO iStage=2,nRKStages
   CurrentStage=iStage
   tStage=t+dt*RKc(iStage)
@@ -498,6 +525,9 @@ DO iStage=2,nRKStages
   CALL VAXPBY(nTotalU,U,S2,ConstOut=RKg1(iStage),ConstIn=RKg2(iStage)) !U = RKg1(iStage)*U + RKg2(iStage)*S2
   CALL VAXPBY(nTotalU,U,Uprev,ConstIn=RKg3(iStage))                !U = U + RKg3(ek)*Uprev
   CALL VAXPBY(nTotalU,U,Ut,ConstIn=b_dt(iStage))                   !U = U + Ut*b_dt(iStage)
+  #if PARABOLIC
+  IF(artvisc%enabled) call CalcArtificialViscosity(U)
+  #endif
 END DO
 CurrentStage=1
 

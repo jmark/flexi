@@ -447,6 +447,8 @@ USE MOD_ExactFunc    ,ONLY: ExactFunc
 #if PARABOLIC
 USE MOD_Flux         ,ONLY: EvalDiffFlux2D
 USE MOD_Riemann      ,ONLY: ViscousFlux
+USE Mod_ArtificialViscosity, ONLY: artvisc
+USE Mod_Mesh_vars,  ONLY: SideToElem
 #endif
 USE MOD_Riemann      ,ONLY: Riemann
 #ifdef EDDYVISCOSITY
@@ -508,6 +510,7 @@ ELSE
     CALL Riemann(Nloc,Flux,UCons_master,UCons_boundary,UPrim_master,UPrim_boundary, &
         NormVec,TangVec1,TangVec2,doBC=.TRUE.)
 #if PARABOLIC
+    artvisc%elemid = SideToElem(S2E_ELEM_ID,sideID)
     CALL ViscousFlux(Nloc,Fd_Face_loc,UPrim_master,UPrim_boundary,&
          gradUx_master,gradUy_master,gradUz_master,&
          gradUx_master,gradUy_master,gradUz_master,&

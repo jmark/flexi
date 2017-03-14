@@ -473,11 +473,23 @@ FILE(GLOB_RECURSE flexiF90 ./src/interpolation/*.f90
                            ./unitTests/generateunittestreferencedata.f90)
 
 FILE(GLOB eqnsysF90        ./src/equations/${FLEXI_EQNSYSNAME}/*.f90)
+
+IF (FLEXI_PARABOLIC)
+  FILE(GLOB ArtificialViscosityF90 ./src/artificialViscosity/*.f90)
+  LIST(APPEND eqnsysF90 ${ArtificialViscosityF90})
+ENDIF()
+
+IF (FLEXI_PARABOLIC)
+  FILE(GLOB CoolingF90 ./src/cooling/*.f90)
+  LIST(APPEND eqnsysF90 ${CoolingF90})
+ENDIF()
+
 IF (WITHEOS GREATER 0)
   FILE(GLOB eosF90         ./src/equations/${FLEXI_EQNSYSNAME}/${FLEXI_EOS}/*.f90)
   LIST(APPEND eqnsysF90 ${eosF90})
   INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/src/equations/${FLEXI_EQNSYSNAME}/${FLEXI_EOS}/) 
 ENDIF()
+
 IF (FLEXI_EDDYVISCOSITY)
   FILE(GLOB_RECURSE eddyviscF90 ./src/equations/${FLEXI_EQNSYSNAME}/eddyVisc/*.f90)
   LIST(APPEND eqnsysF90 ${eddyviscF90})

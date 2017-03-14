@@ -118,6 +118,7 @@ USE MOD_Viscosity
 #ifdef EDDYVISCOSITY
 USE MOD_EddyVisc_Vars,ONLY: muSGS,PrSGS,eddyViscosity
 #endif
+USE MOD_ArtificialViscosity, ONLY: artvisc
 IMPLICIT NONE
 !----------------------------------------------------------------------------------------------------------------------------------
 ! INPUT / OUTPUT VARIABLES
@@ -140,7 +141,7 @@ DO k=0,PP_N;  DO j=0,PP_N; DO i=0,PP_N
   v3   = UPrim(4,i,j,k)
   ! Viscous part
   ! ideal gas law
-  muS=VISCOSITY_PRIM(prim)
+  muS = VISCOSITY_PRIM(prim) + artvisc%nu(iElem)
   lambda=THERMAL_CONDUCTIVITY_H(muS)
   !Add turbulent sub grid scale viscosity to mu
 #ifdef EDDYVISCOSITY

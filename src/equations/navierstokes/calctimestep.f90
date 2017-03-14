@@ -106,6 +106,7 @@ USE MOD_EOS_Vars
 #if PARABOLIC
 USE MOD_TimeDisc_Vars,ONLY:DFLScale
 USE MOD_Viscosity
+USE MOD_ArtificialViscosity, ONLY: artvisc
 #endif /*PARABOLIC*/
 USE MOD_TimeDisc_Vars,ONLY:CFLScale,ViscousTimeStep,dtElem
 #if FV_ENABLED
@@ -160,7 +161,7 @@ DO iElem=1,nElems
 #if PARABOLIC
     ! Viscous Eigenvalues
     prim = UE(PRIM)
-    mu=VISCOSITY_PRIM(prim)
+    mu = VISCOSITY_PRIM(prim) + artvisc%nu_max
     Max_Lambda_v=MAX(Max_Lambda_v,mu*UE(SRHO)*MetricsVisc(:,i,j,k,iElem,FVE))
 #endif /* PARABOLIC*/
   END DO; END DO; END DO ! i,j,k

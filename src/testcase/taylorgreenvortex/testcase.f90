@@ -13,9 +13,9 @@
 !=================================================================================================================================
 #include "flexi.h"
 
-#if FV_ENABLED
-#error "This testcase is not tested with FV"
-#endif
+!! #if FV_ENABLED
+!! #error "This testcase is not tested with FV"
+!! #endif
 
 !==================================================================================================================================
 !> Subroutines defining the Taylor-Green isentropic vortex testcase
@@ -116,10 +116,10 @@ CHARACTER(LEN=31)        :: varnames(nTGVVars)
 SWRITE(UNIT_StdOut,'(132("-"))')
 SWRITE(UNIT_stdOut,'(A)') ' INIT TESTCASE TAYLOR-GREEN VORTEX...'
 
-#if FV_ENABLED
-CALL CollectiveStop(__STAMP__, &
-  'The testcase has not been implemented for FV yet!')
-#endif
+!! #if FV_ENABLED
+!! CALL CollectiveStop(__STAMP__, &
+!!   'The testcase has not been implemented for FV yet!')
+!! #endif
 
 ! Length of Buffer for TGV output
 nWriteStats      = GETINT( 'nWriteStats','100')
