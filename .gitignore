@@ -10,4 +10,5 @@ src/lib*.a
 bin/*
 ini/*
 lib/*
-#share/*
+share/*
+builds/*
