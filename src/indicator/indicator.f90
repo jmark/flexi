@@ -40,6 +40,7 @@ INTEGER,PARAMETER :: INDTYPE_JAMESON      = 8
 INTEGER,PARAMETER :: INDTYPE_DUCROS       = 9
 INTEGER,PARAMETER :: INDTYPE_HALFHALF     = 3
 INTEGER,PARAMETER :: INDTYPE_CHECKERBOARD = 33
+INTEGER,PARAMETER :: INDTYPE_MARVIN       = 22
 
 INTERFACE InitIndicator
   MODULE PROCEDURE InitIndicator
@@ -97,6 +98,7 @@ CALL prms%CreateIntFromStringOption('IndicatorType',"Specify type of indicator t
 CALL addStrListEntry('IndicatorType','dg',          INDTYPE_DG)
 CALL addStrListEntry('IndicatorType','fv',          INDTYPE_FV)
 CALL addStrListEntry('IndicatorType','persson',     INDTYPE_PERSSON)
+CALL addStrListEntry('IndicatorType','marvin',      INDTYPE_MARVIN)
 CALL addStrListEntry('IndicatorType','halfhalf',    INDTYPE_HALFHALF)
 CALL addStrListEntry('IndicatorType','checkerboard',INDTYPE_CHECKERBOARD)
 CALL addStrListEntry('IndicatorType','jameson',     INDTYPE_JAMESON)
@@ -161,6 +163,11 @@ CASE(INDTYPE_PERSSON)
   ! number of modes to be checked by Persson indicator
   nModes = GETINT('nModes','2')
   nModes = MAX(1,nModes+PP_N-MIN(NUnder,NFilter))-1 ! increase by number of empty modes in case of overintegration
+
+CASE(INDTYPE_MARVIN)
+  nModes = GETINT('nModes','2')
+  nModes = MAX(1,nModes+PP_N-MIN(NUnder,NFilter))-1 ! increase by number of empty modes in case of overintegration
+
 CASE(-1) ! legacy
   IndicatorType=INDTYPE_DG
 END SELECT
@@ -218,6 +225,7 @@ CASE(INDTYPE_DG) ! no indicator, just a high value to trigger filtering
   IndValue=-100
 CASE(INDTYPE_FV) ! indicator everywhere
   IndValue = 100
+
 CASE(INDTYPE_PERSSON) ! Modal Persson indicator
   DO iElem=1,nElems
 #if FV_ENABLED
@@ -232,6 +240,22 @@ CASE(INDTYPE_PERSSON) ! Modal Persson indicator
 #endif
     IndValue(iElem) = IndPersson(U_P)
   END DO ! iElem
+
+CASE(INDTYPE_MARVIN)
+  DO iElem=1,nElems
+#if FV_ENABLED
+    IF (FV_Elems(iElem).EQ.0) THEN ! DG Element 
+#endif      
+      U_P(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N) => U(:,:,:,:,iElem)
+#if FV_ENABLED
+    ELSE
+      CALL ChangeBasis3D(PP_nVar,PP_N,PP_N,FV_sVdm,U(:,:,:,:,iElem),U_DG)
+      U_P(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N) => U_DG
+    END IF
+#endif
+    IndValue(iElem) = IndMarvin(U_P)
+  END DO ! iElem
+
 #if EQNSYSNR == 2 /* NAVIER-STOKES */ 
 #if FV_ENABLED
 CASE(INDTYPE_JAMESON) 
@@ -266,6 +290,122 @@ END SELECT
 
 END SUBROUTINE CalcIndicator
 
+!==================================================================================================================================
+
+FUNCTION IndMarvin(U) RESULT(IndValue)
+USE MOD_PreProc
+USE MOD_Indicator_Vars,ONLY:nModes,IndVar
+USE MOD_Interpolation_Vars, ONLY:sVdm_Leg
+#if EQNSYSNR == 2 /* NAVIER-STOKES */ 
+USE MOD_EOS_Vars
+#endif /* NAVIER-STOKES */
+
+USE MOD_TimeDisc_Vars,  ONLY: t
+USE MOD_Globals
+
+IMPLICIT NONE
+!----------------------------------------------------------------------------------------------------------------------------------
+! INPUT/OUTPUT VARIABLES
+REAL,INTENT(IN)    :: U(PP_nVar,0:PP_N,0:PP_N,0:PP_N)           !< Solution
+REAL               :: IndValue                                  !< Value of the indicator (Return Value)
+!----------------------------------------------------------------------------------------------------------------------------------
+! LOCAL VARIABLES
+INTEGER                              :: iDeg,i,j,k,l
+#if EQNSYSNR == 2 /* NAVIER-STOKES */ 
+REAL                                 :: UE(1:PP_2Var)
+#endif /* NAVIER-STOKES */
+REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_loc
+REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Xi
+REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Eta
+REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Modal
+
+REAL :: LU,LUM1,LUM2,LU_N,LU_NM1, indValue2, indValue3, indValue4
+
+integer :: ioUnit
+integer :: openStat
+CHARACTER(LEN=255)             :: FileName
+
+!==================================================================================================================================
+
+SELECT CASE (IndVar)
+CASE(1:PP_nVar)
+  U_loc = U(IndVar,:,:,:)
+#if EQNSYSNR == 2 /* NAVIER-STOKES */ 
+CASE(6)
+  DO k=0,PP_N; DO j=0,PP_N; DO i=0,PP_N
+    UE(CONS)=U(:,i,j,k)
+    UE(SRHO)=1./UE(DENS)
+    UE(VELV)=VELOCITY_HE(UE)
+    U_loc(i,j,k)=PRESSURE_HE(UE)
+  END DO; END DO; END DO! i,j,k=0,PP_N
+#endif /* NAVIER-STOKES */
+END SELECT
+
+!! ! Transform nodal solution to a modal representation
+U_Xi   = 0.
+U_Eta  = 0.
+U_Modal= 0.
+DO k=0,PP_N; DO j=0,PP_N; DO i=0,PP_N; DO l=0,PP_N
+  U_Xi(i,j,k)    = U_Xi(i,j,k)    + sVdm_Leg(i,l)*U_loc(l,j,k)
+END DO ; END DO ; END DO ; END DO 
+DO k=0,PP_N; DO j=0,PP_N; DO i=0,PP_N; DO l=0,PP_N
+  U_Eta(i,j,k)   = U_Eta(i,j,k)   + sVdm_Leg(j,l)*U_Xi(i,l,k) 
+END DO ; END DO ; END DO ; END DO 
+DO k=0,PP_N; DO j=0,PP_N; DO i=0,PP_N; DO l=0,PP_N
+  U_Modal(i,j,k) = U_Modal(i,j,k) + sVdm_Leg(k,l)*U_Eta(i,j,l) 
+END DO ; END DO ; END DO ; END DO 
+
+!! ! Adapted Persson indicator
+!! IndValue=TINY(0.)
+!! DO iDeg=0,nModes
+!!   ! Build maximum of 1D indicators
+!!   ! Xi
+!!   IndValue=MAX(IndValue,SUM(U_Modal(PP_N-iDeg:PP_N-iDeg,:,:))**2 /  &
+!!                         (SUM(U_Modal(0:PP_N-iDeg,:,:))**2+EPSILON(0.)))
+!!   ! Eta
+!!   IndValue=MAX(IndValue,SUM(U_Modal(:,PP_N-iDeg:PP_N-iDeg,:))**2 /  &
+!!                         (SUM(U_Modal(:,0:PP_N-iDeg,:))**2+EPSILON(0.)))
+!!   ! Zeta
+!!   IndValue=MAX(IndValue,SUM(U_Modal(:,:,PP_N-iDeg:PP_N-iDeg))**2 /  &
+!!                         (SUM(U_Modal(:,:,0:PP_N-iDeg))**2+EPSILON(0.)))
+!! END DO
+!! 
+!! ! Normalize indicator value
+!! IndValue=LOG10(IndValue)
+!! IndValue2 = IndValue
+
+
+!! Indicator by Marvin
+!! Compute (truncated) error norms
+LU      = SUM(U_modal(:,:,:)**2)
+LUM1    = SUM(U_modal(0:PP_N-1,0:PP_N-1,0:PP_N-1)**2)
+LUM2    = SUM(U_modal(0:PP_N-2,0:PP_N-2,0:PP_N-2)**2)
+
+LU_N    = LU-LUM1
+LU_NM1  = LUM1-LUM2
+
+!! DOF energy indicator
+IndValue = LOG10(MAX(EPSILON(0.) + LU_N/LU, EPSILON(0.) + LU_NM1/LUM1))
+
+!! ioUnit   = GETFREEUNIT()
+!! FileName = TRIM(TIMESTAMP('indicator',t))//'_'//itoa(myRank)//'.dat'
+!! 
+!! OPEN(UNIT     = ioUnit             , &
+!!      FILE     = TRIM(FileName)     , &
+!!      FORM     = 'FORMATTED'        , &
+!!      STATUS   = 'UNKNOWN'          , &
+!!      POSITION = 'APPEND'           , &
+!!      RECL     = 50000              , &
+!!      IOSTAT   = openStat             )
+!! 
+!! IF(openStat.NE.0) THEN
+!!     CALL abort(__STAMP__, 'ERROR: cannot open '// TRIM(FileName))
+!! END IF
+!! 
+!! WRITE(ioUnit, '(2(ES28.16))') IndValue, IndValue2
+!! CLOSE(ioUnit)
+
+END FUNCTION IndMarvin
 
 !==================================================================================================================================
 !> Determine, if given a modal representation solution "U_Modal" is oscillating

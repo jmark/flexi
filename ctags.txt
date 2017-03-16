@@ -490,7 +490,7 @@ ELEM_LastSideInd	src/mesh/mesh_readin.f90	/^INTEGER,PARAMETER    :: ELEM_LastSid
 ELEM_Type	src/mesh/mesh_readin.f90	/^INTEGER,PARAMETER    :: ELEM_Type=/;"	v	module:MOD_Mesh_Readin
 ELEM_Zone	src/mesh/mesh_readin.f90	/^INTEGER,PARAMETER    :: ELEM_Zone=/;"	v	module:MOD_Mesh_Readin
 ENER	src/equations/navierstokes/idealgas/eos.h	29;"	d
-ENERGY_HE	src/equations/navierstokes/idealgas/eos.h	67;"	d
+ENERGY_HE	src/equations/navierstokes/idealgas/eos.h	68;"	d
 ENTROPY_H	src/equations/navierstokes/idealgas/eos.h	56;"	d
 ERRWRITE	src/flexi.h	68;"	d
 EStar	src/equations/navierstokes/riemann.f90	/^REAL    :: U_Star(PP_nVar),EStar$/;"	L	subroutine:Riemann_HLLC	file:
@@ -823,6 +823,7 @@ FileName	posti/recordpoints/visualize/output/outputrpvisu.f90	/^CHARACTER(LEN=25
 FileName	posti/visu/avg2d.f90	/^CHARACTER(LEN=255)  :: FileName$/;"	L	subroutine:WriteAverageToHDF5	file:
 FileName	posti/visu/paraviewReader/visuReader.h	/^      char* FileName;$/;"	m	class:visuReader
 FileName	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^CHARACTER(LEN=255),INTENT(IN) :: FileName /;"	L	subroutine:ReadBCFlow	file:
+FileName	src/indicator/indicator.f90	/^CHARACTER(LEN=255)             :: FileName$/;"	L	function:IndMarvin	file:
 FileName	src/io_hdf5/hdf5_input.f90	/^CHARACTER(LEN=*),INTENT(IN)    :: FileName /;"	L	function:ISVALIDHDF5FILE	file:
 FileName	src/io_hdf5/hdf5_input.f90	/^CHARACTER(LEN=*),INTENT(IN)    :: FileName /;"	L	subroutine:GetNextFileName	file:
 FileName	src/io_hdf5/hdf5_output.f90	/^CHARACTER(LEN=*),INTENT(IN)    :: FileName /;"	L	subroutine:GatheredWriteArray	file:
@@ -1224,6 +1225,7 @@ INDTYPE_DUCROS	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_DUCROS
 INDTYPE_FV	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_FV /;"	v	module:MOD_Indicator
 INDTYPE_HALFHALF	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_HALFHALF /;"	v	module:MOD_Indicator
 INDTYPE_JAMESON	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_JAMESON /;"	v	module:MOD_Indicator
+INDTYPE_MARVIN	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_MARVIN /;"	v	module:MOD_Indicator
 INDTYPE_PERSSON	src/indicator/indicator.f90	/^INTEGER,PARAMETER :: INDTYPE_PERSSON /;"	v	module:MOD_Indicator
 INFO	src/equations/navierstokes/idealgas/eos_posti.f90	/^INTEGER            :: INFO$/;"	L	function:FillLambda2	file:
 INTSTAMP	src/globals/globals.f90	/^FUNCTION INTSTAMP(/;"	f	module:MOD_Globals
@@ -1250,10 +1252,12 @@ IgnoredParameters	src/readintools/readintools.f90	/^INTERFACE IgnoredParameters$
 IgnoredParameters	src/readintools/readintools.f90	/^SUBROUTINE IgnoredParameters(/;"	s	module:MOD_ReadInTools
 Ind	posti/recordpoints/visualize/varnamemappings/varnamemappings_vars.f90	/^  INTEGER,ALLOCATABLE              :: Ind(/;"	k	type:tDerivedQ
 IndGlobal	posti/recordpoints/visualize/varnamemappings/varnamemappings_vars.f90	/^  INTEGER,ALLOCATABLE              :: IndGlobal(/;"	k	type:tDerivedQ
+IndMarvin	src/indicator/indicator.f90	/^FUNCTION IndMarvin(/;"	f	module:MOD_Indicator
 IndPersson	src/indicator/indicator.f90	/^FUNCTION IndPersson(/;"	f	module:MOD_Indicator
 IndPersson	src/indicator/indicator.f90	/^INTERFACE IndPersson$/;"	i	module:MOD_Indicator
 IndStartTime	src/indicator/indicator_vars.f90	/^REAL                   :: IndStartTime$/;"	v	module:MOD_Indicator_Vars
 IndValue	src/indicator/indicator.f90	/^REAL                      :: IndValue(/;"	L	function:JamesonIndicator	file:
+IndValue	src/indicator/indicator.f90	/^REAL               :: IndValue /;"	L	function:IndMarvin	file:
 IndValue	src/indicator/indicator.f90	/^REAL               :: IndValue /;"	L	function:IndPersson	file:
 IndValue	src/indicator/indicator.f90	/^REAL               :: IndValue(/;"	L	function:DucrosIndicator	file:
 IndValue	src/indicator/indicator_vars.f90	/^REAL,ALLOCATABLE       :: IndValue(/;"	v	module:MOD_Indicator_Vars
@@ -1432,10 +1436,15 @@ LAF_alpha	src/filter/filter_vars.f90	/^REAL                   :: LAF_alpha /;"	v
 LINK	src/readintools/readintools.f90	/^TYPE,PUBLIC :: LINK$/;"	t	module:MOD_ReadInTools
 LOGWRITE	src/flexi.h	69;"	d
 LU	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,/;"	L	subroutine:CalcArtificialViscosity	file:
+LU	src/indicator/indicator.f90	/^REAL :: LU,/;"	L	function:IndMarvin	file:
 LUM1	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,LUM1,/;"	L	subroutine:CalcArtificialViscosity	file:
+LUM1	src/indicator/indicator.f90	/^REAL :: LU,LUM1,/;"	L	function:IndMarvin	file:
 LUM2	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,LUM1,LUM2,/;"	L	subroutine:CalcArtificialViscosity	file:
+LUM2	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,/;"	L	function:IndMarvin	file:
 LU_N	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,LUM1,LUM2,LU_N,/;"	L	subroutine:CalcArtificialViscosity	file:
+LU_N	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,LU_N,/;"	L	function:IndMarvin	file:
 LU_NM1	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,LUM1,LUM2,LU_N,LU_NM1,/;"	L	subroutine:CalcArtificialViscosity	file:
+LU_NM1	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,LU_N,LU_NM1,/;"	L	function:IndMarvin	file:
 L_2_Error	src/analyze/analyze.f90	/^REAL                            :: L_Inf_Error(PP_nVar),L_2_Error(/;"	L	subroutine:Analyze	file:
 L_2_Error	src/analyze/analyze.f90	/^REAL,INTENT(OUT)                :: L_2_Error(/;"	L	subroutine:CalcErrorNorms	file:
 L_HatMinus	src/dg/dg.f90	/^REAL,ALLOCATABLE,DIMENSION(:)  ,INTENT(OUT)    :: L_HatMinus /;"	L	subroutine:InitDGbasis	file:
@@ -2414,7 +2423,7 @@ SIDE_Type	src/mesh/mesh_readin.f90	/^INTEGER,PARAMETER    :: SIDE_Type=/;"	v	mod
 SIDE_nbElemID	src/mesh/mesh_readin.f90	/^INTEGER,PARAMETER    :: SIDE_nbElemID=/;"	v	module:MOD_Mesh_Readin
 SIZEOF_F	src/flexi.h	38;"	d
 SPEEDOFSOUND_H	src/equations/navierstokes/idealgas/eos.h	53;"	d
-SPEEDOFSOUND_HE	src/equations/navierstokes/idealgas/eos.h	63;"	d
+SPEEDOFSOUND_HE	src/equations/navierstokes/idealgas/eos.h	64;"	d
 SPONGEBASEFLOW_CONSTANT	src/sponge/sponge.f90	/^INTEGER,PARAMETER :: SPONGEBASEFLOW_CONSTANT /;"	v	module:MOD_Sponge
 SPONGEBASEFLOW_EXACTFUNC	src/sponge/sponge.f90	/^INTEGER,PARAMETER :: SPONGEBASEFLOW_EXACTFUNC /;"	v	module:MOD_Sponge
 SPONGEBASEFLOW_FILE	src/sponge/sponge.f90	/^INTEGER,PARAMETER :: SPONGEBASEFLOW_FILE /;"	v	module:MOD_Sponge
@@ -2608,7 +2617,7 @@ TECINI112	posti/recordpoints/prepare/visurp.f90	/^INTEGER             :: TECINI1
 TECZNE112	posti/recordpoints/prepare/visurp.f90	/^INTEGER             :: TECINI112,TECZNE112,/;"	L	subroutine:WriteRPDataToTecplotBinary	file:
 TEMP	src/equations/navierstokes/idealgas/eos.h	38;"	d
 TEMPERATURE_H	src/equations/navierstokes/idealgas/eos.h	57;"	d
-TEMPERATURE_HE	src/equations/navierstokes/idealgas/eos.h	66;"	d
+TEMPERATURE_HE	src/equations/navierstokes/idealgas/eos.h	67;"	d
 TEnd	posti/recordpoints/visualize/interpolation/interpolation_vars.f90	/^REAL                            :: dt_out,TEnd$/;"	v	module:MOD_RPInterpolation_Vars
 TEnd	src/timedisc/timedisc_vars.f90	/^REAL             :: TEnd /;"	v
 THERMAL_CONDUCTIVITY_H	src/equations/navierstokes/idealgas/eos.h	43;"	d
@@ -2618,9 +2627,9 @@ TMP	src/indicator/indicator.f90	/^INTEGER                   :: TMP(/;"	L	functio
 TMP_master	src/indicator/indicator.f90	/^INTEGER                   :: TMP_master(/;"	L	function:JamesonIndicator	file:
 TMP_slave	src/indicator/indicator.f90	/^INTEGER                   :: TMP_slave(/;"	L	function:JamesonIndicator	file:
 TOTALENERGY_H	src/equations/navierstokes/idealgas/eos.h	54;"	d
-TOTALENERGY_HE	src/equations/navierstokes/idealgas/eos.h	64;"	d
+TOTALENERGY_HE	src/equations/navierstokes/idealgas/eos.h	65;"	d
 TOTALENTHALPY_H	src/equations/navierstokes/idealgas/eos.h	55;"	d
-TOTALENTHALPY_HE	src/equations/navierstokes/idealgas/eos.h	65;"	d
+TOTALENTHALPY_HE	src/equations/navierstokes/idealgas/eos.h	66;"	d
 TOTAL_PRESSURE_H	src/equations/navierstokes/idealgas/eos.h	45;"	d
 TOTAL_TEMPERATURE_H	src/equations/navierstokes/idealgas/eos.h	44;"	d
 TP_nVar	src/dg/surfint.f90	/^INTEGER,PARAMETER :: TP_nVar /;"	v	module:MOD_SurfIntCons
@@ -2742,6 +2751,7 @@ U	src/equations/navierstokes/flux.f90	/^REAL,INTENT(IN)     :: U(/;"	L	subroutin
 U	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^REAL                    :: U,/;"	L	subroutine:GetBoundaryState	file:
 U	src/flexi2vtk.f90	/^REAL,ALLOCATABLE               :: U(/;"	v	program:FLEXI2VTK
 U	src/indicator/indicator.f90	/^REAL,INTENT(IN)           :: U(/;"	L	function:JamesonIndicator	file:
+U	src/indicator/indicator.f90	/^REAL,INTENT(IN)    :: U(/;"	L	function:IndMarvin	file:
 U	src/indicator/indicator.f90	/^REAL,INTENT(IN)    :: U(/;"	L	function:IndPersson	file:
 U	src/indicator/indicator.f90	/^REAL,INTENT(INOUT/;"	L	subroutine:CalcIndicator	file:
 U	src/output/output.f90	/^REAL,INTENT(IN)               :: U(/;"	L	subroutine:Visualize	file:
@@ -2771,6 +2781,7 @@ UE	src/equations/navierstokes/equation.f90	/^REAL    :: UE(/;"	L	subroutine:Init
 UE	src/equations/navierstokes/flux.f90	/^REAL                :: UE(/;"	L	subroutine:EvalEulerFlux1D	file:
 UE	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL               :: UE(/;"	L	subroutine:CalcDerivedQuantity	file:
 UE	src/equations/navierstokes/timeavg.f90	/^REAL                            :: prim(PP_nVarPrim,0:PP_N,0:PP_N,0:PP_N),UE(/;"	L	subroutine:CalcTimeAverage	file:
+UE	src/indicator/indicator.f90	/^REAL                                 :: UE(/;"	L	function:IndMarvin	file:
 UE	src/indicator/indicator.f90	/^REAL                                 :: UE(/;"	L	function:IndPersson	file:
 UE	src/indicator/indicator.f90	/^REAL                      :: UE(/;"	L	function:JamesonIndicator	file:
 UE_f	src/dg/br2/br2_volint.f90	/^REAL,DIMENSION(PP_nVarPrim,0:PP_N,0:PP_N,0:PP_N) :: UE_f,/;"	L	subroutine:Lifting_VolInt_Conservative	file:
@@ -2871,6 +2882,7 @@ U_DG	src/fv/fv.f90	/^REAL    :: U_DG(/;"	L	subroutine:FV_Switch	file:
 U_DG	src/indicator/indicator.f90	/^REAL,TARGET               :: U_DG(/;"	L	subroutine:CalcIndicator	file:
 U_Eta	src/filter/filter.f90	/^REAL,DIMENSION(PP_nVar,0:PP_N,0:PP_N,0:PP_N) :: U_Xi,U_Eta$/;"	L	subroutine:Filter	file:
 U_Eta	src/filter/filter.f90	/^REAL,DIMENSION(PP_nVar,0:PP_N,0:PP_N,0:PP_N) :: U_Xi,U_Eta,/;"	L	subroutine:Filter_LAF	file:
+U_Eta	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Eta$/;"	L	function:IndMarvin	file:
 U_Eta	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Eta$/;"	L	function:IndPersson	file:
 U_FFT	posti/channel_fft/fft_vars.f90	/^REAL,ALLOCATABLE        :: U_FFT(/;"	v	module:MOD_FFT_Vars
 U_FV	src/analyze/analyze.f90	/^REAL                            :: U_FV(/;"	L	subroutine:CalcErrorNorms	file:
@@ -2885,6 +2897,7 @@ U_LL	src/equations/navierstokes/riemann.f90	/^REAL,DIMENSION(PP_2Var),INTENT(IN)
 U_LL	src/equations/navierstokes/riemann.f90	/^REAL,DIMENSION(PP_2Var),INTENT(IN) :: U_LL,/;"	L	subroutine:Riemann_LF	file:
 U_LL	src/equations/navierstokes/riemann.f90	/^REAL,DIMENSION(PP_2Var),INTENT(IN) :: U_LL,/;"	L	subroutine:Riemann_Roe	file:
 U_LL	src/equations/navierstokes/riemann.f90	/^REAL,DIMENSION(PP_2Var),INTENT(IN) :: U_LL,/;"	L	subroutine:Riemann_RoeEntropyFix	file:
+U_Modal	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Modal$/;"	L	function:IndMarvin	file:
 U_Modal	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Modal$/;"	L	function:IndPersson	file:
 U_Mortar	src/mortar/fillmortar.f90	/^INTERFACE U_Mortar$/;"	i	module:MOD_FillMortar
 U_Mortar1	src/mortar/fillmortar.f90	/^INTERFACE U_Mortar1$/;"	i	module:MOD_FillMortar1
@@ -2916,6 +2929,7 @@ U_Visu_FV_p	src/flexi2vtk.f90	/^REAL,POINTER                   :: U_Visu_FV_p(/;
 U_Visu_p	src/flexi2vtk.f90	/^REAL,POINTER                   :: U_Visu_p(/;"	v	program:FLEXI2VTK
 U_Xi	src/filter/filter.f90	/^REAL,DIMENSION(PP_nVar,0:PP_N,0:PP_N,0:PP_N) :: U_Xi,/;"	L	subroutine:Filter	file:
 U_Xi	src/filter/filter.f90	/^REAL,DIMENSION(PP_nVar,0:PP_N,0:PP_N,0:PP_N) :: U_Xi,/;"	L	subroutine:Filter_LAF	file:
+U_Xi	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Xi$/;"	L	function:IndMarvin	file:
 U_Xi	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_Xi$/;"	L	function:IndPersson	file:
 U_aux	posti/channel_fft/fft.f90	/^REAL,DIMENSION(:,:,:,:),ALLOCATABLE :: U_aux$/;"	L	subroutine:PrimStateAtFFTCoords	file:
 U_avg	src/filter/filter.f90	/^REAL                                         :: ekin_avg,U_avg(/;"	L	subroutine:Filter_LAF	file:
@@ -2929,6 +2943,7 @@ U_in	src/dg/overintegration.f90	/^REAL,INTENT(INOUT)  :: U_in(/;"	L	subroutine:O
 U_in	src/filter/filter.f90	/^REAL,INTENT(INOUT)  :: U_in(/;"	L	subroutine:Filter	file:
 U_in	src/filter/filter.f90	/^REAL,INTENT(INOUT)  :: U_in(/;"	L	subroutine:Filter_LAF	file:
 U_loc	src/dg/overintegration.f90	/^REAL                :: U_loc(/;"	L	subroutine:FilterConservative	file:
+U_loc	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_loc$/;"	L	function:IndMarvin	file:
 U_loc	src/indicator/indicator.f90	/^REAL,DIMENSION(0:PP_N,0:PP_N,0:PP_N) :: U_loc$/;"	L	function:IndPersson	file:
 U_local	src/restart/restart.f90	/^REAL,ALLOCATABLE   :: U_local(/;"	L	subroutine:Restart	file:
 U_master	src/dg/dg_vars.f90	/^REAL,ALLOCATABLE                      :: U_master(/;"	v	module:MOD_DG_Vars
@@ -2987,8 +3002,8 @@ VELOCITY_H	src/equations/navierstokes/idealgas/eos.h	52;"	d
 VELOCITY_HE	src/equations/navierstokes/idealgas/eos.h	61;"	d
 VELV	src/equations/navierstokes/idealgas/eos.h	36;"	d
 VGP	src/mortar/mortar.f90	/^REAL,DIMENSION(0:N_in,0:N_in) :: VGP,/;"	L	subroutine:MortarBasis_SmallToBig	file:
-VISCOSITY_PRIM	src/equations/navierstokes/idealgas/eos.h	70;"	d
-VISCOSITY_TEMPERATURE	src/equations/navierstokes/idealgas/eos.h	78;"	d
+VISCOSITY_PRIM	src/equations/navierstokes/idealgas/eos.h	71;"	d
+VISCOSITY_TEMPERATURE	src/equations/navierstokes/idealgas/eos.h	79;"	d
 VISUREADER_H	posti/visu/paraviewReader/visuReader.h	18;"	d
 VISU_PLUGIN_H	posti/visu/plugin_visu.h	18;"	d
 VNullify	src/globals/vector.f90	/^SUBROUTINE VNullify(/;"	s	module:MOD_Vector
@@ -4184,6 +4199,7 @@ i	src/fv/fv_reconstruction.f90	/^INTEGER :: p,q,i,/;"	L	subroutine:FV_PrepareSur
 i	src/fv/fv_volint.f90	/^INTEGER                                      :: i,/;"	L	subroutine:FV_VolInt	file:
 i	src/globals/globals.f90	/^INTEGER            :: i /;"	L	function:TIMESTAMP	file:
 i	src/globals/vector.f90	/^INTEGER               :: i$/;"	L	subroutine:VAXPBY	file:
+i	src/indicator/indicator.f90	/^INTEGER                              :: iD/;"	L	function:IndMarvin	file:
 i	src/indicator/indicator.f90	/^INTEGER                              :: iD/;"	L	function:IndPersson	file:
 i	src/indicator/indicator.f90	/^INTEGER                   :: i,/;"	L	function:JamesonIndicator	file:
 i	src/indicator/indicator.f90	/^INTEGER :: i,/;"	L	function:DucrosIndicator	file:
@@ -4256,6 +4272,7 @@ iDQ	posti/recordpoints/visualize/varnamemappings/varnamemappings.f90	/^INTEGER  
 iDeg	src/dg/overintegration.f90	/^INTEGER             :: iDeg,/;"	L	subroutine:InitOverintegration	file:
 iDeg	src/filter/filter.f90	/^INTEGER             :: iDeg$/;"	L	subroutine:HestFilter	file:
 iDeg	src/filter/filter.f90	/^INTEGER             :: iDeg,/;"	L	subroutine:InitFilter	file:
+iDeg	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,/;"	L	function:IndMarvin	file:
 iDeg	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,/;"	L	function:IndPersson	file:
 iDens	src/equations/navierstokes/idealgas/eos_posti.f90	/^INTEGER            :: i,iMom1,iMom2,iMom3,iDens,/;"	L	subroutine:CalcDerivedQuantity	file:
 iELem	src/equations/navierstokes/flux.f90	/^INTEGER, INTENT(IN)                                          :: iELem /;"	L	subroutine:EvalDiffFlux3D	file:
@@ -4699,6 +4716,9 @@ ind	src/fv/fv.f90	/^REAL    :: ind$/;"	L	subroutine:FV_Switch	file:
 ind	src/mesh/mesh_vars.f90	/^  INTEGER                      :: ind /;"	k	type:tElem
 ind	src/mesh/mesh_vars.f90	/^  INTEGER                      :: ind /;"	k	type:tSide
 ind	src/mortar/mortar_metrics.f90	/^INTEGER  :: p,q,dir1,dir2,iNb,jNb,ind,/;"	L	subroutine:Mortar_CalcSurfMetrics	file:
+indValue2	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,LU_N,LU_NM1, indValue2,/;"	L	function:IndMarvin	file:
+indValue3	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,LU_N,LU_NM1, indValue2, indValue3,/;"	L	function:IndMarvin	file:
+indValue4	src/indicator/indicator.f90	/^REAL :: LU,LUM1,LUM2,LU_N,LU_NM1, indValue2, indValue3, indValue4$/;"	L	function:IndMarvin	file:
 index	src/readintools/isovaryingstring.f90	/^  interface index$/;"	i	module:MOD_ISO_VARYING_STRING
 index_CH_VS	src/readintools/isovaryingstring.f90	/^  elemental function index_CH_VS /;"	f
 index_VS_CH	src/readintools/isovaryingstring.f90	/^  elemental function index_VS_CH /;"	f
@@ -4732,6 +4752,7 @@ intList	src/readintools/options.f90	/^    INTEGER,ALLOCATABLE             :: int
 int_in	src/readintools/readintools.f90	/^INTEGER         ,INTENT(IN)    :: int_in /;"	L	subroutine:addStrListEntry	file:
 interpolateFromTree	src/mesh/mesh_vars.f90	/^LOGICAL          :: interpolateFromTree /;"	v	module:MOD_Mesh_Vars
 ioCounter	src/testcase/stirturb/testcase_vars.f90	/^INTEGER            :: ioCounter /;"	v	module:MOD_TestCase_Vars
+ioUnit	src/indicator/indicator.f90	/^integer :: ioUnit$/;"	L	function:IndMarvin	file:
 ioUnit	src/io_hdf5/hdf5_output.f90	/^INTEGER                  :: stat,ioUnit$/;"	L	subroutine:FlushFiles	file:
 ioUnit	src/mesh/prepare_mesh.f90	/^INTEGER               :: iNbProc,ioUnit,/;"	L	subroutine:setLocalSideIDs	file:
 ioUnit	src/output/output.f90	/^INTEGER                        :: ioUnit,/;"	L	subroutine:InitOutputToFile	file:
@@ -4843,6 +4864,7 @@ j	src/fv/fv_metrics.f90	/^INTEGER                                :: i,j,/;"	L	su
 j	src/fv/fv_reconstruction.f90	/^INTEGER                                            :: i,j,/;"	L	subroutine:FV_CalcGradients	file:
 j	src/fv/fv_reconstruction.f90	/^INTEGER :: p,q,i,j,/;"	L	subroutine:FV_PrepareSurfGradient	file:
 j	src/fv/fv_volint.f90	/^INTEGER                                      :: i,j,/;"	L	subroutine:FV_VolInt	file:
+j	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,/;"	L	function:IndMarvin	file:
 j	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,/;"	L	function:IndPersson	file:
 j	src/indicator/indicator.f90	/^INTEGER                   :: i,j,/;"	L	function:JamesonIndicator	file:
 j	src/indicator/indicator.f90	/^INTEGER :: i,j,/;"	L	function:DucrosIndicator	file:
@@ -4955,6 +4977,7 @@ k	src/fv/fv_metrics.f90	/^INTEGER                                :: i,j,k,/;"	L	
 k	src/fv/fv_reconstruction.f90	/^INTEGER                                            :: i,j,k$/;"	L	subroutine:FV_CalcGradients	file:
 k	src/fv/fv_reconstruction.f90	/^INTEGER :: p,q,i,j,k,/;"	L	subroutine:FV_PrepareSurfGradient	file:
 k	src/fv/fv_volint.f90	/^INTEGER                                      :: i,j,k,/;"	L	subroutine:FV_VolInt	file:
+k	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,k,/;"	L	function:IndMarvin	file:
 k	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,k,/;"	L	function:IndPersson	file:
 k	src/indicator/indicator.f90	/^INTEGER                   :: i,j,k,/;"	L	function:JamesonIndicator	file:
 k	src/indicator/indicator.f90	/^INTEGER :: i,j,k,/;"	L	function:DucrosIndicator	file:
@@ -5030,6 +5053,7 @@ l	src/fv/fv_metrics.f90	/^INTEGER                                :: i,j,k,p,q,l,
 l	src/fv/fv_metrics.f90	/^INTEGER            :: q,p,l$/;"	L	subroutine:Integrate_Path	file:
 l	src/fv/fv_reconstruction.f90	/^INTEGER                                            :: iEle/;"	L	subroutine:FV_CalcGradients	file:
 l	src/fv/fv_reconstruction.f90	/^INTEGER,INTENT(IN) :: l /;"	L	subroutine:CopySurfaceToVolume	file:
+l	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,k,l$/;"	L	function:IndMarvin	file:
 l	src/indicator/indicator.f90	/^INTEGER                              :: iDeg,i,j,k,l$/;"	L	function:IndPersson	file:
 l	src/mesh/mappings.f90	/^INTEGER              :: fli/;"	L	function:VolToVol	file:
 l	src/mesh/mappings.f90	/^INTEGER,INTENT(IN)   :: l,/;"	L	function:SideToVol	file:
@@ -5718,6 +5742,7 @@ op_ne	src/readintools/isovaryingstring.f90	/^    logical                        
 op_ne_CH_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_CH_VS /;"	f	module:MOD_ISO_VARYING_STRING
 op_ne_VS_CH	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_CH /;"	f	module:MOD_ISO_VARYING_STRING
 op_ne_VS_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_VS /;"	f	module:MOD_ISO_VARYING_STRING
+openStat	src/indicator/indicator.f90	/^integer :: openStat$/;"	L	function:IndMarvin	file:
 openStat	src/output/output.f90	/^INTEGER                        :: openStat /;"	L	subroutine:OutputToFile	file:
 openStat	src/testcase/stirturb/testcase.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
 optionalREAL	src/testcase/stirturb/testcase.f90	/^    REAL, OPTIONAL,INTENT(IN) :: optionalREAL,/;"	L	subroutine:DO_NOTHING	file:
