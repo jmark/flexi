@@ -161,7 +161,8 @@ DO iElem=1,nElems
 #if PARABOLIC
     ! Viscous Eigenvalues
     prim = UE(PRIM)
-    mu = VISCOSITY_PRIM(prim) + artvisc%nu_max
+    !!mu = VISCOSITY_PRIM(prim) + artvisc%nu_max
+    mu = VISCOSITY_PRIM(prim)
     Max_Lambda_v=MAX(Max_Lambda_v,mu*UE(SRHO)*MetricsVisc(:,i,j,k,iElem,FVE))
 #endif /* PARABOLIC*/
   END DO; END DO; END DO ! i,j,k

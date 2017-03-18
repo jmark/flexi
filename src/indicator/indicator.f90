@@ -141,6 +141,7 @@ SWRITE(UNIT_stdOut,'(A)') ' INIT INDICATORS...'
 ! Read in  parameters
 IndicatorType = GETINTFROMSTR('IndicatorType')
 SELECT CASE(IndicatorType)
+
 CASE(INDTYPE_JAMESON)
 #if !(FV_ENABLED)
   CALL Abort(__STAMP__, &
@@ -150,6 +151,7 @@ CASE(INDTYPE_JAMESON)
   CALL Abort(__STAMP__, &
       "Jameson indicator only works with Navier-Stokes equations.")
 #endif /* EQNSYSNR != 2 */
+
 CASE(INDTYPE_DUCROS)
 #if !(PARABOLIC)
   CALL Abort(__STAMP__, &
@@ -159,6 +161,7 @@ CASE(INDTYPE_DUCROS)
   CALL Abort(__STAMP__, &
       "Ducros indicator only works with Navier-Stokes equations.")
 #endif /* EQNSYSNR != 2 */
+
 CASE(INDTYPE_PERSSON)
   ! number of modes to be checked by Persson indicator
   nModes = GETINT('nModes','2')
@@ -170,6 +173,7 @@ CASE(INDTYPE_MARVIN)
 
 CASE(-1) ! legacy
   IndicatorType=INDTYPE_DG
+
 END SELECT
 
 IndStartTime = GETREAL('IndStartTime')
@@ -221,8 +225,10 @@ IF (t.LT.IndStartTime) THEN
 END IF
 
 SELECT CASE (IndicatorType)
+
 CASE(INDTYPE_DG) ! no indicator, just a high value to trigger filtering
   IndValue=-100
+
 CASE(INDTYPE_FV) ! indicator everywhere
   IndValue = 100
 
@@ -266,6 +272,7 @@ CASE(INDTYPE_DUCROS)
   IndValue = DucrosIndicator(gradUx,gradUy,gradUz)
 #endif
 #endif /* NAVIER-STOKES */
+
 CASE(INDTYPE_HALFHALF)  ! half/half
   DO iElem=1,nElems
     IF (Elem_xGP(1,0,0,0,iElem).GT.0.0) THEN
@@ -283,6 +290,7 @@ CASE(INDTYPE_CHECKERBOARD) ! every second element (checkerboard like)
       IndValue(iElem) =  100
     END IF
   END DO ! iElem = 1, nElems
+
 CASE DEFAULT ! unknown Indicator Type
   CALL abort(__STAMP__,&
     "Unknown IndicatorType!")
