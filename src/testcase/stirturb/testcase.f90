@@ -101,6 +101,7 @@ SUBROUTINE DefineParametersTestcase
     CALL prms%CreateRealOption('st_zeta',   "Ratio compressive to solenoidal forcing.",   '0.5')
     CALL prms%CreateRealOption('st_F0',     "Base Force Value",         '1.0')
     CALL prms%CreateRealOption('st_g0',     "Some g parameter",         '1.0')
+    CALL prms%CreateRealOption('st_tmax',   "maximum stirring time",    '99999.0')
 
     CALL prms%CreateRealOption('st_force_base',     "Base Force",         '1.0')
     CALL prms%CreateRealOption('st_force_param',    "Forcing Parameter",  '1.0')
@@ -156,7 +157,7 @@ SUBROUTINE InitTestcase
     st_zeta = GETREAL('st_zeta',    '0.5')
     st_F0   = GETREAL('st_F0',      '1.0')
     st_g0   = GETREAL('st_g0',      '1.0')
-
+    st_tmax = GETREAL('st_tmax',    '999999.0')
     st_mach = GETREAL('st_mach',    '1.0')
 
     st_active = GETLOGICAL('st_active',    'T')
@@ -254,6 +255,11 @@ SUBROUTINE TestcaseSource(Ut)
     INTEGER :: time_steps_since_last_forcing = 0
 
     if (.not. st_active) return
+
+    if (t .gt. st_tmax) then
+        st_active = .false.
+        return
+    end if
 
     if (wait_time_steps .gt. st_wait_time_steps) then
         call CalcMachAvg(mach_avg)
