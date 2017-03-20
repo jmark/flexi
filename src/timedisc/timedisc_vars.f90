@@ -740,7 +740,8 @@ CASE('ketchesonrk4-18')
 
 CASE('explicit-euler')
 
-  TimeDiscName = 'Explicit Euler'
+    TimeDiscName = 'Explicit Euler'
+    nRKStages = 1
 
 #if PARABOLIC
     RelativeDFL=1.
