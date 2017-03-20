@@ -93,6 +93,8 @@ CASE('LSERKW2')
   TimeStep=>TimeStepByLSERKW2
 CASE('LSERKK3')
   TimeStep=>TimeStepByLSERKK3
+CASE('EXPLICIT-EULER')
+  TimeStep=>TimeStepByExplicitEuler
 END SELECT
 
 IF(TimeDiscInitIsDone)THEN
@@ -533,6 +535,34 @@ CurrentStage=1
 
 END SUBROUTINE TimeStepByLSERKK3
 
+SUBROUTINE TimeStepByExplicitEuler(t)
+
+USE MOD_PreProc
+USE MOD_Vector
+USE MOD_DG           ,ONLY: DGTimeDerivative_weakForm
+USE MOD_DG_Vars      ,ONLY: U,Ut,nTotalU
+USE MOD_TimeDisc_Vars,ONLY: dt
+USE MOD_Mesh_Vars    ,ONLY: nElems
+
+#if PARABOLIC
+USE MOD_ArtificialViscosity, ONLY: artvisc, CalcArtificialViscosity
+#endif
+
+IMPLICIT NONE
+
+REAL, INTENT(IN) :: t !! current simulation time
+
+REAL :: Uprev(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N,1:nElems)
+
+CALL VCopy(nTotalU, Uprev, U)           !! Uprev = U
+CALL DGTimeDerivative_weakForm(t)       !! spatial integration
+CALL VAXPBY(nTotalU,U,Ut,ConstIn=dt)    !! U = U + dt * Ut
+
+#if PARABOLIC
+IF(artvisc%enabled) call CalcArtificialViscosity(U)
+#endif
+
+END SUBROUTINE TimeStepByExplicitEuler
 
 !===================================================================================================================================
 !> Scaling of the CFL number, from paper GASSNER, KOPRIVA, "A comparision of the Gauss and Gauss-Lobatto
