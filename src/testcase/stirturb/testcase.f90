@@ -270,9 +270,9 @@ SUBROUTINE TestcaseSource(Ut)
             !!force = 1.e-3/MERGE(1.e-5,dt, dt < 1.e-5) * st_force_base
             force = st_force_base
 
-            if (mach_avg .gt. 0.95*st_mach) then
-                force = force * abs(mach_avg-st_mach) / (0.08*st_mach)
-            end if
+            !!if (mach_avg .gt. 0.95*st_mach) then
+            !!    force = force * abs(mach_avg-st_mach) / (0.08*st_mach)
+            !!end if
 
             call OU_time_step()
             call ApplyForcing(force,Ut)
