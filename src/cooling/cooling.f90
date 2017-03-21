@@ -156,7 +156,8 @@ SUBROUTINE ApplyCooling
                 DO i=0,NAnalyze
 # if FV_ENABLED
                     IF (FV_Elems(ii).GT.0) THEN ! FV Element
-                        volu = 1/DBLE(nElems * (NAnalyze+1)**3) 
+                        !! FIXME: assume unit box
+                        volu = 1/DBLE(nGlobalElems * (NAnalyze+1)**3) 
                     ELSE
 # endif
                     volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)
@@ -173,7 +174,6 @@ SUBROUTINE ApplyCooling
 
                     sums(IDX_VOLU) = sums(IDX_VOLU) + volu
                     sums(IDX_MASS) = sums(IDX_MASS) + dens*volu
-
                     sums(IDX_ENER) = sums(IDX_ENER) + ener*volu
                     sums(IDX_EINT) = sums(IDX_EINT) + eint*volu
                     sums(IDX_EKIN) = sums(IDX_EKIN) + ekin*volu
@@ -240,7 +240,8 @@ SUBROUTINE ApplyCooling
                 DO i=0,NAnalyze
 # if FV_ENABLED
                     IF (FV_Elems(ii).GT.0) THEN ! FV Element
-                        volu = 1/DBLE(nElems * (NAnalyze+1)**3) 
+                        !! FIXME: assume unit box
+                        volu = 1/DBLE(nGlobalElems * (NAnalyze+1)**3) 
                     ELSE
 # endif
                     volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)

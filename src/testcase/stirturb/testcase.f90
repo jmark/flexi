@@ -264,10 +264,6 @@ SUBROUTINE TestcaseSource(Ut)
     if (wait_time_steps .gt. st_wait_time_steps) then
         call CalcMachAvg(mach_avg)
         if (mach_avg .lt. st_mach) then
-            !!force = st_force_base * exp(-st_force_param * str_mach_avg/st_mach) / DBLE(time_steps_since_last_forcing)
-            !!force = 1.e-3/dt * exp(pres_sum) * st_force_base !!/ DBLE(time_steps_since_last_forcing)
-            !!force = 1.e-3/MERGE(1.e-5,dt, dt < 1.e-5) * pres_sum*pres_sum * st_force_base !!/ DBLE(time_steps_since_last_forcing)
-            !!force = 1.e-3/MERGE(1.e-5,dt, dt < 1.e-5) * st_force_base
             force = st_force_base
 
             if (mach_avg .gt. 0.95*st_mach) then
@@ -357,15 +353,6 @@ SUBROUTINE ApplyForcing(force,Ut)
 
             ENDDO
 
-            !! accx = sin(twopi/st_Lbox * coords(1))
-            !! accy = cos(twopi/st_Lbox * coords(2))
-            !! accz = sin(twopi/st_Lbox * coords(3))
-
-            !! norm_acc = SQRT(accx*accx + accy*accy + accz*accz)
-            !!norm_acc = 1.0
-
-            !!norm_acc = SQRT(SUM(Ut(2:4,i,j,k,iElem)**2))
-
             Ut(2,i,j,k,iElem) = Ut(2,i,j,k,iElem) + U(1,i,j,k,iElem) * force * accx
             Ut(3,i,j,k,iElem) = Ut(3,i,j,k,iElem) + U(1,i,j,k,iElem) * force * accy
             Ut(4,i,j,k,iElem) = Ut(4,i,j,k,iElem) + U(1,i,j,k,iElem) * force * accz
@@ -390,7 +377,7 @@ SUBROUTINE CalcMachAvg(mach_avg)
     USE MOD_EOS_Vars,       ONLY: KappaM1,mu0,R,kappa
     USE MOD_Mesh_Vars,      ONLY: sJ
     USE MOD_ChangeBasis,    ONLY: ChangeBasis3D
-    USE MOD_Mesh_Vars,      ONLY: nElems
+    USE MOD_Mesh_Vars,      ONLY: nElems,nGlobalElems
     USE MOD_TimeDisc_Vars, ONLY: dt
 
 # if FV_ENABLED
@@ -447,7 +434,8 @@ SUBROUTINE CalcMachAvg(mach_avg)
 
 # if FV_ENABLED
                     IF (FV_Elems(ii).GT.0) THEN ! FV Element
-                        volu = 1/DBLE(nElems * (NAnalyze+1)**3) 
+                        !! FIXME: assume unit box
+                        volu = 1/DBLE(nGlobalElems * (NAnalyze+1)**3) 
                     ELSE
                         volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)
                     END IF
@@ -578,7 +566,8 @@ SUBROUTINE AnalyzeTestcase(simtime)
 
 # if FV_ENABLED
                     IF (FV_Elems(ii).GT.0) THEN ! FV Element
-                        volu = 1/DBLE(nElems * (NAnalyze+1)**3) 
+                        !! FIXME: asume unit box
+                        volu = 1/DBLE(nGlobalElems * (NAnalyze+1)**3) 
                     ELSE
 # endif
                     volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)
