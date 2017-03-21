@@ -175,6 +175,7 @@ SUBROUTINE ApplyCooling
                     sums(IDX_MASS) = sums(IDX_MASS) + dens*volu
 
                     sums(IDX_ENER) = sums(IDX_ENER) + ener*volu
+                    sums(IDX_EINT) = sums(IDX_EINT) + eint*volu
                     sums(IDX_EKIN) = sums(IDX_EKIN) + ekin*volu
 
                 END DO
@@ -184,7 +185,6 @@ SUBROUTINE ApplyCooling
 
 #   if USE_MPI
     CALL MPI_REDUCE(sums, recv, sums_LEN, MPI_DOUBLE_PRECISION, MPI_SUM, 0, MPI_COMM_WORLD, ierror)
-    IF (.not. MPIRoot) RETURN
     sums(:) = recv(:)
 #   endif
 
@@ -257,8 +257,8 @@ SUBROUTINE ApplyCooling
 
                     sums(IDX_VOLU) = sums(IDX_VOLU) + volu
                     sums(IDX_MASS) = sums(IDX_MASS) + dens*volu
-
                     sums(IDX_ENER) = sums(IDX_ENER) + ener*volu
+                    sums(IDX_EINT) = sums(IDX_EINT) + eint*volu
                     sums(IDX_EKIN) = sums(IDX_EKIN) + ekin*volu
 
                 END DO
