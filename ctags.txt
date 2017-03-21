@@ -1169,8 +1169,11 @@ GetVarnames	src/io_hdf5/hdf5_input.f90	/^SUBROUTINE GetVarnames(/;"	s	module:MOD
 Gmat	posti/recordpoints/prepare/blprojection.f90	/^REAL                  :: Gmat(/;"	L	subroutine:ProjectRPtoBC	file:
 Gmat	posti/recordpoints/prepare/parametriccoords.f90	/^REAL                  :: Gmat(/;"	L	subroutine:GetParametricCoordinates	file:
 GradTn	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: GradTn$/;"	L	function:FillWallHeatTransfer	file:
+GradUx_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: GradUx_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 GradUx_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: GradUx_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
+GradUy_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: GradUy_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 GradUy_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: GradUy_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
+GradUz_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: GradUz_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 GradUz_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: GradUz_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
 GradV	src/equations/navierstokes/calcbodyforces.f90	/^REAL                           :: GradV(/;"	L	subroutine:CalcViscousForce	file:
 GradV	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: GradV(/;"	L	function:FillWallFriction	file:
@@ -1215,6 +1218,21 @@ HestFilterParam	src/filter/filter_vars.f90	/^REAL                   :: HestFilte
 ID	posti/recordpoints/prepare/rpset_vars.f90	/^  INTEGER                          :: ID$/;"	k	type:tGroup
 ID	posti/recordpoints/prepare/rpset_vars.f90	/^  INTEGER                          :: ID$/;"	k	type:tRP
 ID	src/mesh/prepare_mesh.f90	/^INTEGER, INTENT(IN)                :: ID /;"	L	function:INVMAP	file:
+IDX_DENS	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_DENS /;"	L	subroutine:ApplyCooling	file:
+IDX_EINT	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_EINT /;"	L	subroutine:ApplyCooling	file:
+IDX_EKIN	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_EKIN /;"	L	subroutine:ApplyCooling	file:
+IDX_ENER	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_ENER /;"	L	subroutine:ApplyCooling	file:
+IDX_FVV	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_FVV /;"	L	subroutine:ApplyCooling	file:
+IDX_MACH_MAX	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_MACH_MAX /;"	L	subroutine:ApplyCooling	file:
+IDX_MACH_MIN	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_MACH_MIN /;"	L	subroutine:ApplyCooling	file:
+IDX_MASS	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_MASS /;"	L	subroutine:ApplyCooling	file:
+IDX_PRES	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_PRES /;"	L	subroutine:ApplyCooling	file:
+IDX_PRES_MAX	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_PRES_MAX /;"	L	subroutine:ApplyCooling	file:
+IDX_PRES_MIN	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_PRES_MIN /;"	L	subroutine:ApplyCooling	file:
+IDX_RMSV	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_RMSV /;"	L	subroutine:ApplyCooling	file:
+IDX_RMSV_MAX	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_RMSV_MAX /;"	L	subroutine:ApplyCooling	file:
+IDX_TEMP	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_TEMP /;"	L	subroutine:ApplyCooling	file:
+IDX_VOLU	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: IDX_VOLU /;"	L	subroutine:ApplyCooling	file:
 IDlist	posti/recordpoints/visualize/rpset/rpset_vars.f90	/^  INTEGER,ALLOCATABLE           :: IDlist(/;"	k	type:tLine
 IDlist	posti/recordpoints/visualize/rpset/rpset_vars.f90	/^  INTEGER,ALLOCATABLE           :: IDlist(/;"	k	type:tPlane
 IEEE_ISNAN	src/flexi.h	22;"	d
@@ -2436,6 +2454,7 @@ STR255	src/readintools/readintools.f90	/^  type, public :: STR255$/;"	t	module:M
 STRICMP	src/readintools/stringtools.f90	/^FUNCTION STRICMP(/;"	f	module:MOD_StringTools
 STRICMP	src/readintools/stringtools.f90	/^INTERFACE STRICMP$/;"	i	module:MOD_StringTools
 STRICMP	src/readintools/stringtools.f90	/^LOGICAL            :: STRICMP$/;"	L	function:STRICMP	file:
+SUMS_LEN	src/cooling/cooling.f90	/^    INTEGER, PARAMETER :: SUMS_LEN /;"	L	subroutine:ApplyCooling	file:
 SUMS_LEN	src/testcase/stirturb/testcase.f90	/^    INTEGER, PARAMETER :: SUMS_LEN /;"	L	subroutine:CalcMachAvg	file:
 SWRITE	posti/visu/paraviewReader/visuReader.cxx	45;"	d	file:
 SWRITE	src/flexi.h	60;"	d
@@ -2906,6 +2925,7 @@ U_MortarCons	src/mortar/fillmortar.f90	/^INTERFACE U_MortarCons$/;"	i	module:MOD
 U_MortarPrim	src/mortar/fillmortar.f90	/^INTERFACE U_MortarPrim$/;"	i	module:MOD_FillMortarPrim
 U_N	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^REAL,POINTER                  :: U_N(/;"	L	subroutine:ReadBCFlow	file:
 U_NAnalyze	src/analyze/analyze.f90	/^REAL                            :: U_NAnalyze(/;"	L	subroutine:CalcErrorNorms	file:
+U_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: U_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 U_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: U_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
 U_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: U_NAnalyze(/;"	L	subroutine:CalcMachAvg	file:
 U_NVisu	src/output/output.f90	/^REAL,ALLOCATABLE,TARGET       :: U_NVisu(/;"	L	subroutine:Visualize	file:
@@ -3538,10 +3558,13 @@ copy_userblock	src/output/read_userblock.c	/^void copy_userblock(char* outfilena
 copy_userblock	src/output/read_userblock_dummy.c	/^void copy_userblock(char* outfilename, char* infilename)$/;"	f
 correct	src/mesh/mappings.f90	/^LOGICAL             :: correct$/;"	L	subroutine:buildMappings	file:
 cosXGP	src/equations/navierstokes/idealgas/exactfunc.f90	/^REAL                :: sinXGP,sinXGP2,cosXGP,/;"	L	subroutine:CalcSource	file:
+count	src/cooling/cooling.f90	/^    integer :: count /;"	L	subroutine:ApplyCooling	file:
+count	src/cooling/cooling.f90	/^    integer,intent(in)              :: count$/;"	L	subroutine:write2file	file:
 count	src/testcase/stirturb/testcase.f90	/^    INTEGER :: ii,i,j,k,count$/;"	L	subroutine:CalcMachAvg	file:
 count	src/testcase/stirturb/testcase.f90	/^    integer :: count /;"	L	subroutine:AnalyzeTestcase	file:
 count	src/testcase/stirturb/testcase.f90	/^    integer,intent(in)              :: count$/;"	L	subroutine:write2file	file:
 countCons	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^INTEGER                               :: iVar,iVar2,strlen,countCons$/;"	L	subroutine:InitEquationRP	file:
+countStr	src/cooling/cooling.f90	/^    character(range(count)+2) :: countStr$/;"	L	subroutine:write2file	file:
 countStr	src/testcase/stirturb/testcase.f90	/^    character(range(count)+2) :: countStr$/;"	L	subroutine:write2file	file:
 counter	posti/recordpoints/visualize/fft/spec.f90	/^REAL                            :: iOct, octaveLimUpper, octaveLimLower, counter$/;"	L	subroutine:spec	file:
 cp	src/equations/navierstokes/idealgas/eos_vars.f90	/^REAL              :: cp /;"	v	module:MOD_EOS_Vars
@@ -3591,6 +3614,7 @@ delimiter	src/readintools/stringtools.f90	/^CHARACTER,           INTENT(IN)  :: 
 delta	src/equations/navierstokes/riemann.f90	/^REAL                                   :: Alpha(2:4),delta,/;"	L	subroutine:Riemann_HLLEM	file:
 delta1	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^REAL                 :: u_delta,delta99,delta1,/;"	L	subroutine:Plane_BLProps	file:
 delta99	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^REAL                 :: u_delta,delta99,/;"	L	subroutine:Plane_BLProps	file:
+dens	src/cooling/cooling.f90	/^    REAL    :: dens,/;"	L	subroutine:ApplyCooling	file:
 dens	src/testcase/stirturb/testcase.f90	/^    REAL    :: dens,/;"	L	subroutine:AnalyzeTestcase	file:
 dens	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens,/;"	L	subroutine:CalcMachAvg	file:
 density_avg	posti/recordpoints/visualize/turbulence/turb.f90	/^REAL , ALLOCATABLE              :: velAbs(:,:) , velAbs_avg(:) , density_avg(/;"	L	subroutine:Turbulence	file:
@@ -3752,7 +3776,9 @@ dz	src/output/output.f90	/^REAL                          :: dx,dy,dz$/;"	L	subro
 e	src/io_hdf5/hdf5_output.f90	/^TYPE(tElem/;"	L	subroutine:WriteAdditionalElemData	file:
 eRatio	src/filter/filter_vars.f90	/^REAL,ALLOCATABLE       :: lim(:),eRatio(/;"	v	module:MOD_Filter_Vars
 eddyViscType	src/equations/navierstokes/eddyVisc/eddyVisc_vars.f90	/^INTEGER                             :: eddyViscType /;"	v
+eint	src/cooling/cooling.f90	/^    REAL    :: volu, mass, ener, ekin, eint,/;"	L	subroutine:ApplyCooling	file:
 eint	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, mass, ener, ekin, eint,/;"	L	subroutine:AnalyzeTestcase	file:
+ekin	src/cooling/cooling.f90	/^    REAL    :: volu, mass, ener, ekin,/;"	L	subroutine:ApplyCooling	file:
 ekin	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens, mass, pres, rmsv, ekin,/;"	L	subroutine:CalcMachAvg	file:
 ekin	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, mass, ener, ekin,/;"	L	subroutine:AnalyzeTestcase	file:
 ekin_avg	src/filter/filter.f90	/^REAL                                         :: ekin_avg,/;"	L	subroutine:Filter_LAF	file:
@@ -3764,6 +3790,7 @@ elemDataFound	src/flexi2vtk.f90	/^LOGICAL                        :: elemDataFoun
 endIndexMapVarCalc	posti/visu/avg2d.f90	/^INTEGER,INTENT(IN)            :: startIndexMapVarCalc,endIndexMapVarCalc,/;"	L	subroutine:Average2D	file:
 endT	src/recordpoints/recordpoints.f90	/^REAL                           :: startT,endT$/;"	L	subroutine:WriteRP	file:
 end_position	src/readintools/stringtools.f90	/^INTEGER :: start_position, end_position$/;"	L	subroutine:split_string	file:
+ener	src/cooling/cooling.f90	/^    REAL    :: volu, mass, ener,/;"	L	subroutine:ApplyCooling	file:
 ener	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, mass, ener,/;"	L	subroutine:AnalyzeTestcase	file:
 ep	src/mesh/mesh_vars.f90	/^  TYPE(tElem),POINTER          :: ep /;"	k	type:tElemPtr
 eps0	src/artificialViscosity/artificialViscosity.f90	/^    REAL                                  :: LU,LUM1,LUM2,LU_N,LU_NM1,eta_dof,eta_min,eta_max,eps0!/;"	L	subroutine:CalcArtificialViscosity	file:
@@ -4145,7 +4172,7 @@ i	posti/visu/visu.f90	/^INTEGER                                             :: i
 i	src/analyze/analyze.f90	/^INTEGER                          :: i,/;"	L	subroutine:InitAnalyze	file:
 i	src/analyze/analyze.f90	/^INTEGER                          :: i,/;"	L	subroutine:InitAnalyzeBasis	file:
 i	src/artificialViscosity/artificialViscosity.f90	/^    INTEGER                               :: ii/;"	L	subroutine:CalcArtificialViscosity	file:
-i	src/cooling/cooling.f90	/^    INTEGER :: ii/;"	L	subroutine:ApplyCooling	file:
+i	src/cooling/cooling.f90	/^    INTEGER :: i,/;"	L	subroutine:ApplyCooling	file:
 i	src/dg/br2/br2_volint.f90	/^INTEGER                                          :: iE/;"	L	subroutine:Lifting_VolInt_Conservative	file:
 i	src/dg/br2/br2_volint.f90	/^INTEGER                    :: iE/;"	L	subroutine:Lifting_VolInt_Nonconservative	file:
 i	src/dg/br2/br2_volint.f90	/^INTEGER            :: i$/;"	L	subroutine:Lifting_Metrics	file:
@@ -4684,7 +4711,7 @@ ii	posti/visu/avg2d.f90	/^INTEGER          :: iElem, iElem_DG, iElem_FV, iElemAv
 ii	posti/visu/converttovisu.f90	/^INTEGER                        :: iVarVisu,iElem_DG,iElem_FV,iElem,iVarDataset,iVar,iVar2,ii,/;"	L	subroutine:ConvertToVisu_GenericData	file:
 ii	posti/visu/visumesh.f90	/^INTEGER            :: iElemAvg,ii,/;"	L	subroutine:BuildVisuCoords	file:
 ii	src/artificialViscosity/artificialViscosity.f90	/^    INTEGER                               :: ii,/;"	L	subroutine:CalcArtificialViscosity	file:
-ii	src/cooling/cooling.f90	/^    INTEGER :: ii,/;"	L	subroutine:ApplyCooling	file:
+ii	src/cooling/cooling.f90	/^    INTEGER :: i,j,k,ii$/;"	L	subroutine:ApplyCooling	file:
 ii	src/fv/fv.f90	/^INTEGER           :: i,iElem, j,k,ii,/;"	L	subroutine:FV_FillIni	file:
 ii	src/output/output.f90	/^INTEGER                       :: i,j,k,FV_NVisu,iii/;"	L	subroutine:Visualize	file:
 ii	src/testcase/stirturb/testcase.f90	/^    INTEGER :: i,j,k,ii$/;"	L	subroutine:AnalyzeTestcase	file:
@@ -4712,6 +4739,8 @@ imin	src/testcase/stirturb/testcase.f90	/^    real, save :: imin,/;"	L	subroutin
 in	posti/channel_fft/fft_vars.f90	/^COMPLEX,ALLOCATABLE     :: in(/;"	v	module:MOD_FFT_Vars
 in	posti/recordpoints/visualize/fft/spec.f90	/^COMPLEX,ALLOCATABLE             :: in(/;"	L	subroutine:spec	file:
 in	posti/recordpoints/visualize/turbulence/turb.f90	/^COMPLEX                         :: in(/;"	L	subroutine:Turbulence	file:
+incr	src/cooling/cooling.f90	/^    integer :: incr$/;"	L	function:incr	file:
+incr	src/cooling/cooling.f90	/^function incr(/;"	f
 incr	src/testcase/stirturb/testcase.f90	/^    integer :: incr$/;"	L	function:incr	file:
 incr	src/testcase/stirturb/testcase.f90	/^function incr(/;"	f
 ind	src/fv/fv.f90	/^REAL    :: ind$/;"	L	subroutine:FV_Switch	file:
@@ -4754,6 +4783,7 @@ intList	src/readintools/options.f90	/^    INTEGER,ALLOCATABLE             :: int
 int_in	src/readintools/readintools.f90	/^INTEGER         ,INTENT(IN)    :: int_in /;"	L	subroutine:addStrListEntry	file:
 interpolateFromTree	src/mesh/mesh_vars.f90	/^LOGICAL          :: interpolateFromTree /;"	v	module:MOD_Mesh_Vars
 ioCounter	src/testcase/stirturb/testcase_vars.f90	/^INTEGER            :: ioCounter /;"	v	module:MOD_TestCase_Vars
+ioUnit	src/cooling/cooling.f90	/^    integer :: ioUnit$/;"	L	subroutine:write2file	file:
 ioUnit	src/indicator/indicator.f90	/^integer :: ioUnit$/;"	L	function:IndMarvin	file:
 ioUnit	src/io_hdf5/hdf5_output.f90	/^INTEGER                  :: stat,ioUnit$/;"	L	subroutine:FlushFiles	file:
 ioUnit	src/mesh/prepare_mesh.f90	/^INTEGER               :: iNbProc,ioUnit,/;"	L	subroutine:setLocalSideIDs	file:
@@ -4827,7 +4857,7 @@ j	posti/visu/visu.f90	/^INTEGER                                             :: i
 j	src/analyze/analyze.f90	/^INTEGER                          :: i,j,/;"	L	subroutine:InitAnalyze	file:
 j	src/analyze/analyze.f90	/^INTEGER                          :: i,j,/;"	L	subroutine:InitAnalyzeBasis	file:
 j	src/artificialViscosity/artificialViscosity.f90	/^    INTEGER                               :: ii,i,j,/;"	L	subroutine:CalcArtificialViscosity	file:
-j	src/cooling/cooling.f90	/^    INTEGER :: ii,i,j,/;"	L	subroutine:ApplyCooling	file:
+j	src/cooling/cooling.f90	/^    INTEGER :: i,j,/;"	L	subroutine:ApplyCooling	file:
 j	src/dg/br2/br2_volint.f90	/^INTEGER                                          :: iElem,i,j,/;"	L	subroutine:Lifting_VolInt_Conservative	file:
 j	src/dg/br2/br2_volint.f90	/^INTEGER                    :: iElem,i,j,/;"	L	subroutine:Lifting_VolInt_Nonconservative	file:
 j	src/dg/dg.f90	/^INTEGER                         :: i,j,/;"	L	subroutine:FillIni	file:
@@ -4948,7 +4978,7 @@ k	src/analyze/analyze.f90	/^INTEGER                          :: i,j,k$/;"	L	subr
 k	src/analyze/analyze.f90	/^INTEGER                          :: i,j,k,/;"	L	subroutine:InitAnalyze	file:
 k	src/analyze/analyze.f90	/^INTEGER                         :: iElem,k,/;"	L	subroutine:CalcErrorNorms	file:
 k	src/artificialViscosity/artificialViscosity.f90	/^    INTEGER                               :: ii,i,j,k$/;"	L	subroutine:CalcArtificialViscosity	file:
-k	src/cooling/cooling.f90	/^    INTEGER :: ii,i,j,k$/;"	L	subroutine:ApplyCooling	file:
+k	src/cooling/cooling.f90	/^    INTEGER :: i,j,k,/;"	L	subroutine:ApplyCooling	file:
 k	src/dg/br2/br2_volint.f90	/^INTEGER                                          :: iElem,i,j,k,/;"	L	subroutine:Lifting_VolInt_Conservative	file:
 k	src/dg/br2/br2_volint.f90	/^INTEGER                    :: iElem,i,j,k,/;"	L	subroutine:Lifting_VolInt_Nonconservative	file:
 k	src/dg/dg.f90	/^INTEGER                         :: i,j,k,/;"	L	subroutine:FillIni	file:
@@ -5170,6 +5200,7 @@ m	src/testcase/stirturb/testcase.f90	/^    integer     :: m$/;"	L	subroutine:OU_
 m	src/testcase/stirturb/testcase.f90	/^    integer :: i, iii, it, m,/;"	L	subroutine:InitTestcase	file:
 m	src/testcase/stirturb/testcase.f90	/^    integer :: i, j, k, m,/;"	L	subroutine:ApplyForcing	file:
 mSide	src/mesh/prepare_mesh.f90	/^TYPE(tSide),POINTER :: aSide,mSide$/;"	L	subroutine:fillMeshInfo	file:
+mach	src/cooling/cooling.f90	/^    REAL    :: dens, vels(1:3), pres, rmsv, mach$/;"	L	subroutine:ApplyCooling	file:
 mach	src/equations/navierstokes/analyze_equation.f90	/^REAL                           :: dA,c,mach$/;"	L	subroutine:CalcKessel	file:
 mach	src/testcase/stirturb/testcase.f90	/^    REAL    :: dens, vels(1:3), pres, rmsv, mach$/;"	L	subroutine:AnalyzeTestcase	file:
 mach_avg	src/testcase/stirturb/testcase.f90	/^    REAL :: mach_avg,/;"	L	subroutine:TestcaseSource	file:
@@ -5220,6 +5251,7 @@ maskPrim	posti/visu/converttovisu.f90	/^INTEGER             :: maskPrim(/;"	L	su
 mask_master	src/equations/navierstokes/equation.f90	/^INTEGER,INTENT(IN) :: mask_master(/;"	L	subroutine:GetConservativeStateSurface	file:
 mask_ref	src/equations/navierstokes/equation.f90	/^INTEGER,INTENT(IN) :: mask_ref /;"	L	subroutine:GetConservativeStateSurface	file:
 mask_slave	src/equations/navierstokes/equation.f90	/^INTEGER,INTENT(IN) :: mask_slave /;"	L	subroutine:GetConservativeStateSurface	file:
+mass	src/cooling/cooling.f90	/^    REAL    :: volu, mass,/;"	L	subroutine:ApplyCooling	file:
 mass	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens, mass,/;"	L	subroutine:CalcMachAvg	file:
 mass	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, mass,/;"	L	subroutine:AnalyzeTestcase	file:
 maxDist	posti/swapmesh/parametriccoords.f90	/^REAL               :: dist,maxDist,/;"	L	subroutine:GetParametricCoordinates	file:
@@ -5293,6 +5325,7 @@ myLocalRank	src/globals/globals.f90	/^INTEGER           ::myRank,myLocalRank,/;"
 myRPrank	src/recordpoints/recordpoints_vars.f90	/^INTEGER            :: myRPrank /;"	v	module:MOD_RecordPoints_Vars
 myRank	src/globals/globals.f90	/^INTEGER           ::myRank,/;"	v	module:MOD_Globals
 myWorkerRank	src/globals/globals.f90	/^INTEGER           ::myRank,myLocalRank,myLeaderRank,myWorkerRank$/;"	v	module:MOD_Globals
+n	src/cooling/cooling.f90	/^    int/;"	L	function:incr	file:
 n	src/globals/mathtools.f90	/^INTEGER :: n,/;"	L	function:INVERSE	file:
 n	src/testcase/stirturb/testcase.f90	/^    int/;"	L	function:incr	file:
 nA	src/mesh/prepare_mesh.f90	/^INTEGER               :: nA,/;"	L	subroutine:MergeSort	file:
@@ -5744,6 +5777,7 @@ op_ne	src/readintools/isovaryingstring.f90	/^    logical                        
 op_ne_CH_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_CH_VS /;"	f	module:MOD_ISO_VARYING_STRING
 op_ne_VS_CH	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_CH /;"	f	module:MOD_ISO_VARYING_STRING
 op_ne_VS_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_VS /;"	f	module:MOD_ISO_VARYING_STRING
+openStat	src/cooling/cooling.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
 openStat	src/indicator/indicator.f90	/^integer :: openStat$/;"	L	function:IndMarvin	file:
 openStat	src/output/output.f90	/^INTEGER                        :: openStat /;"	L	subroutine:OutputToFile	file:
 openStat	src/testcase/stirturb/testcase.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
@@ -5753,6 +5787,7 @@ oriented	src/mesh/mesh_readin.f90	/^LOGICAL                        :: oriented$/
 out	posti/channel_fft/fft_vars.f90	/^COMPLEX,ALLOCATABLE     :: out(/;"	v	module:MOD_FFT_Vars
 out	posti/recordpoints/visualize/fft/spec.f90	/^COMPLEX,ALLOCATABLE             :: in(:),out(/;"	L	subroutine:spec	file:
 out	posti/recordpoints/visualize/turbulence/turb.f90	/^COMPLEX                         :: in(nSamples_out)/;"	L	subroutine:Turbulence	file:
+outBuf	src/cooling/cooling.f90	/^    real,DIMENSION(:),intent(in)    :: outBuf$/;"	L	subroutine:write2file	file:
 outBuf	src/testcase/stirturb/testcase.f90	/^    real,DIMENSION(:),intent(in)    :: outBuf$/;"	L	subroutine:write2file	file:
 outfilename	src/io_hdf5/hdf5_output.f90	/^      CHARACTER(KIND=C_CHAR) :: outfilename(/;"	L	subroutine:copy_userblock	file:
 output	src/output/output.f90	/^REAL,INTENT(IN)               :: output(/;"	L	subroutine:OutputToFile	file:
@@ -5828,6 +5863,7 @@ pq	src/mesh/mappings.f90	/^INTEGER,DIMENSION(3) :: pq$/;"	L	function:VolToSide	f
 pq	src/mesh/mappings.f90	/^INTEGER,DIMENSION(3) :: pq$/;"	L	function:VolToVol	file:
 pq	src/mesh/metrics.f90	/^INTEGER            :: p,q,pq(/;"	L	subroutine:CalcSurfMetrics	file:
 prepareVandermonde	posti/swapmesh/swapmesh.f90	/^SUBROUTINE prepareVandermonde(/;"	s	module:MOD_SwapMesh
+pres	src/cooling/cooling.f90	/^    REAL    :: dens, vels(1:3), pres,/;"	L	subroutine:ApplyCooling	file:
 pres	src/testcase/stirturb/testcase.f90	/^    REAL    :: dens, vels(1:3), pres,/;"	L	subroutine:AnalyzeTestcase	file:
 pres	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens, mass, pres,/;"	L	subroutine:CalcMachAvg	file:
 pres_max	src/testcase/stirturb/testcase.f90	/^    REAL    :: pres_min, pres_max,/;"	L	subroutine:AnalyzeTestcase	file:
@@ -5969,6 +6005,7 @@ readOnly	src/io_hdf5/io_hdf5.f90	/^LOGICAL,INTENT(IN)            :: readOnly /;"
 read_option	src/readintools/readintools.f90	/^FUNCTION read_option(/;"	f	module:MOD_ReadInTools
 read_options	src/readintools/readintools.f90	/^SUBROUTINE read_options(/;"	s	module:MOD_ReadInTools
 realtime	src/analyze/benchmarking.f90	/^REAL(C_FLOAT)        :: realtime,/;"	L	subroutine:MeasureFlops	file:
+recv	src/cooling/cooling.f90	/^    REAL :: recv(/;"	L	subroutine:ApplyCooling	file:
 recv	src/testcase/stirturb/testcase.f90	/^    REAL    :: recv(/;"	L	subroutine:AnalyzeTestcase	file:
 recv	src/testcase/stirturb/testcase.f90	/^    REAL    :: recv(/;"	L	subroutine:CalcMachAvg	file:
 refVec	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: refVec(/;"	L	subroutine:FillNonDimensionalGridSpacing	file:
@@ -6014,6 +6051,7 @@ replace_VS_VS_CH_target	src/readintools/isovaryingstring.f90	/^  elemental funct
 replace_VS_VS_VS_target	src/readintools/isovaryingstring.f90	/^  elemental function replace_VS_VS_VS_target /;"	f
 replace_VS_VS_auto	src/readintools/isovaryingstring.f90	/^  elemental function replace_VS_VS_auto /;"	f
 replace_VS_VS_fixed	src/readintools/isovaryingstring.f90	/^  elemental function replace_VS_VS_fixed /;"	f
+resBuf	src/cooling/cooling.f90	/^    real*8, dimension(999) :: resBuf$/;"	L	subroutine:ApplyCooling	file:
 resBuf	src/testcase/stirturb/testcase.f90	/^    real*8, dimension(999) :: resBuf$/;"	L	subroutine:AnalyzeTestcase	file:
 resetCounters	src/recordpoints/recordpoints.f90	/^LOGICAL,INTENT(IN)             :: resetCounters /;"	L	subroutine:WriteRP	file:
 resizeDim	src/io_hdf5/hdf5_output.f90	/^LOGICAL,INTENT(IN),OPTIONAL   :: resizeDim(/;"	L	subroutine:WriteArray	file:
@@ -6025,6 +6063,7 @@ rho1	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^REAL            
 rho2	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^REAL                 :: uu,yy,u_max,y_max,u_int,diffu1,diffu2,y1,y2,u1,u2,u3,rho1,rho2,/;"	L	subroutine:Plane_BLProps	file:
 rho_delta	posti/recordpoints/visualize/navierstokes/equationrp.f90	/^REAL                 :: uu,yy,u_max,y_max,u_int,diffu1,diffu2,y1,y2,u1,u2,u3,rho1,rho2,rho_delta,/;"	L	subroutine:Plane_BLProps	file:
 rmsv	src/artificialViscosity/artificialViscosity.f90	/^    REAL*8 :: rmsv$/;"	L	subroutine:CalcArtificialViscosity	file:
+rmsv	src/cooling/cooling.f90	/^    REAL    :: dens, vels(1:3), pres, rmsv,/;"	L	subroutine:ApplyCooling	file:
 rmsv	src/testcase/stirturb/testcase.f90	/^    REAL    :: dens, vels(1:3), pres, rmsv,/;"	L	subroutine:AnalyzeTestcase	file:
 rmsv	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens, mass, pres, rmsv,/;"	L	subroutine:CalcMachAvg	file:
 s	posti/recordpoints/prepare/blprojection.f90	/^REAL,ALLOCATABLE                :: s(/;"	L	subroutine:GetBLPlane	file:
@@ -6044,8 +6083,10 @@ s23	src/equations/navierstokes/equation_vars.f90	/^REAL                 :: s43,s
 s43	src/equations/navierstokes/equation_vars.f90	/^REAL                 :: s43,/;"	v	module:MOD_Equation_Vars
 sJ	src/mesh/mesh_vars.f90	/^REAL,ALLOCATABLE :: sJ(/;"	v	module:MOD_Mesh_Vars
 sJNUnder	src/dg/overintegration_vars.f90	/^REAL,ALLOCATABLE   :: sJNUnder(/;"	v	module:MOD_Overintegration_Vars
+sJ_N	src/cooling/cooling.f90	/^    REAL    :: sJ_N(/;"	L	subroutine:ApplyCooling	file:
 sJ_N	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_N(/;"	L	subroutine:AnalyzeTestcase	file:
 sJ_N	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_N(/;"	L	subroutine:CalcMachAvg	file:
+sJ_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: sJ_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 sJ_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
 sJ_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_NAnalyze(/;"	L	subroutine:CalcMachAvg	file:
 sJac	posti/recordpoints/prepare/parametriccoords.f90	/^REAL                  :: F(1:3),eps_F,Xi(1:3),Jac(1:3,1:3),sdetJac,sJac(/;"	L	subroutine:GetParametricCoordinates	file:
@@ -6401,6 +6442,7 @@ substring_count	posti/visu/converttovisu.f90	/^INTEGER                        ::
 substring_count	src/readintools/stringtools.f90	/^INTEGER,             INTENT(OUT) :: substring_count /;"	L	subroutine:split_string	file:
 substrings	posti/visu/converttovisu.f90	/^CHARACTER(LEN=255)             :: substrings(/;"	L	subroutine:ConvertToVisu_GenericData	file:
 substrings	src/readintools/stringtools.f90	/^CHARACTER (LEN = *), INTENT(OUT) :: substrings(/;"	L	subroutine:split_string	file:
+sums	src/cooling/cooling.f90	/^    REAL :: sums(/;"	L	subroutine:ApplyCooling	file:
 sums	src/testcase/stirturb/testcase.f90	/^    REAL    :: sums(/;"	L	subroutine:AnalyzeTestcase	file:
 sums	src/testcase/stirturb/testcase.f90	/^    REAL    :: sums(/;"	L	subroutine:CalcMachAvg	file:
 sums_LEN	src/testcase/stirturb/testcase.f90	/^    INTEGER, PARAMETER :: sums_LEN /;"	L	subroutine:AnalyzeTestcase	file:
@@ -6492,6 +6534,7 @@ tau_yz	src/equations/navierstokes/flux.f90	/^REAL                :: tau_xx,tau_y
 tau_zz	src/equations/navierstokes/flux.f90	/^REAL                :: tau_xx,tau_yy,tau_zz,/;"	L	subroutine:EvalDiffFlux2D	file:
 tau_zz	src/equations/navierstokes/flux.f90	/^REAL                :: tau_xx,tau_yy,tau_zz,/;"	L	subroutine:EvalDiffFlux3D	file:
 tbeta	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^REAL    :: talpha,tbeta$/;"	L	subroutine:InitBC	file:
+temp	src/cooling/cooling.f90	/^    REAL    :: volu, mass, ener, ekin, eint, temp$/;"	L	subroutine:ApplyCooling	file:
 temp	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: mu,temp,/;"	L	subroutine:FillNonDimensionalGridSpacing	file:
 temp	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: temp$/;"	L	function:FillWallFriction	file:
 temp	src/equations/navierstokes/idealgas/eos_posti.f90	/^REAL              :: temp$/;"	L	function:FillWallHeatTransfer	file:
@@ -6652,6 +6695,7 @@ velAbs	posti/recordpoints/visualize/turbulence/turb.f90	/^REAL , ALLOCATABLE    
 velAbs_avg	posti/recordpoints/visualize/turbulence/turb.f90	/^REAL , ALLOCATABLE              :: velAbs(:,:) , velAbs_avg(/;"	L	subroutine:Turbulence	file:
 velPrim	posti/recordpoints/visualize/turbulence/turb.f90	/^REAL , ALLOCATABLE              :: RPData_turb(:,:,:) , vel_spec(:,:,:) , velPrim(/;"	L	subroutine:Turbulence	file:
 vel_spec	posti/recordpoints/visualize/turbulence/turb.f90	/^REAL , ALLOCATABLE              :: RPData_turb(:,:,:) , vel_spec(/;"	L	subroutine:Turbulence	file:
+vels	src/cooling/cooling.f90	/^    REAL    :: dens, vels(/;"	L	subroutine:ApplyCooling	file:
 vels	src/testcase/stirturb/testcase.f90	/^    REAL    :: dens, vels(/;"	L	subroutine:AnalyzeTestcase	file:
 vels	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu, dens, mass, pres, rmsv, ekin, vels(/;"	L	subroutine:CalcMachAvg	file:
 verify	src/readintools/isovaryingstring.f90	/^  interface verify$/;"	i	module:MOD_ISO_VARYING_STRING
@@ -6675,6 +6719,7 @@ visu_requestInformation	posti/visu/visu_Cwrapper.f90	/^SUBROUTINE visu_requestIn
 vmag	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^REAL                    :: c,vmag,/;"	L	subroutine:GetBoundaryState	file:
 vmax	src/indicator/indicator.f90	/^REAL                      :: v(-1:PP_N+1,-1:PP_N+1,-1:PP_N+1),vmin,vmax$/;"	L	function:JamesonIndicator	file:
 vmin	src/indicator/indicator.f90	/^REAL                      :: v(-1:PP_N+1,-1:PP_N+1,-1:PP_N+1),vmin,/;"	L	function:JamesonIndicator	file:
+volu	src/cooling/cooling.f90	/^    REAL    :: volu,/;"	L	subroutine:ApplyCooling	file:
 volu	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu,/;"	L	subroutine:AnalyzeTestcase	file:
 volu	src/testcase/stirturb/testcase.f90	/^    REAL    :: volu,/;"	L	subroutine:CalcMachAvg	file:
 volume	src/fv/fv_reconstruction.f90	/^REAL,INTENT(INOUT) :: volume(/;"	L	subroutine:CopySurfaceToVolume	file:
@@ -6738,6 +6783,7 @@ word	src/readintools/isovaryingstring.f90	/^    type(varying_string), intent(out
 word	src/readintools/isovaryingstring.f90	/^    type(varying_string), intent(out)           :: word$/;"	L	subroutine:split_VS	file:
 work	src/globals/mathtools.f90	/^REAL    :: work(/;"	L	function:INVERSE	file:
 work_string	src/readintools/isovaryingstring.f90	/^    type(varying_string)          :: work_string$/;"	L	function:replace_CH_CH_CH_target	file:
+write2file	src/cooling/cooling.f90	/^subroutine write2file(/;"	s
 write2file	src/testcase/stirturb/testcase.f90	/^subroutine write2file(/;"	s
 writeBuf	src/testcase/stirturb/testcase_vars.f90	/^REAL,ALLOCATABLE   :: writeBuf(/;"	v	module:MOD_TestCase_Vars
 writeCounter	src/timedisc/timedisc.f90	/^INTEGER                      :: errType,nCalcTimestep,writeCounter$/;"	L	subroutine:TimeDisc	file:

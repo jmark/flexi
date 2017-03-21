@@ -697,12 +697,12 @@ SUBROUTINE AnalyzeTestcase(simtime)
     resBuf(incr(count)) = simtime
     resBuf(incr(count)) = dt
     resBuf(incr(count)) = REAL(sums(FVV)) / REAL(nGlobalElems)
-    resBuf(incr(count)) = MERGE(1,0,viscoustimestep)
-    resBuf(incr(count)) = artvisc%nu_max
+    !!resBuf(incr(count)) = MERGE(1,0,viscoustimestep)
+    !!resBuf(incr(count)) = artvisc%nu_max
     !!resBuf(incr(count)) = artvisc%nu_dg
-    !!resBuf(incr(count)) = ener
-    !!resBuf(incr(count)) = eint
-    !!resBuf(incr(count)) = ekin
+    resBuf(incr(count)) = ener
+    resBuf(incr(count)) = eint
+    resBuf(incr(count)) = ekin
     resBuf(incr(count)) = SQRT(sums(RMSV) / kappa / sums(PRES)) 
     resBuf(incr(count)) = mach_max
     resBuf(incr(count)) = sums(RMSV_MAX)**2
