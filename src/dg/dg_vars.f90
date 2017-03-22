@@ -58,7 +58,6 @@ REAL,ALLOCATABLE                      :: UO(:,:,:,:,:)          !< Solution vari
 !----------------------------------------------------------------------------------------------------------------------------------
 ! DG time derivative or Residual U_t
 REAL,ALLOCATABLE                      :: Ut(:,:,:,:,:)          !< Residual/time derivative, size [1..NVar,0..N,0..N,0..N,nElems]. 
-
 REAL,ALLOCATABLE                      :: UtO(:,:,:,:,:)         !< Residual/time derivative, 
                                                                 !< size [1..NVar,0..NO,0..NO,0..NO,nElems]. 
 

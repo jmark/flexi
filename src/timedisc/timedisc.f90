@@ -97,6 +97,8 @@ CASE('EXPLICIT-EULER')
   TimeStep=>TimeStepByExplicitEuler
 CASE('EXPLICIT-MIDPOINT')
   TimeStep=>TimeStepByMidPoint
+CASE('EXPLICIT-HEUNER')
+  TimeStep=>TimeStepByHeuner
 END SELECT
 
 IF(TimeDiscInitIsDone)THEN
@@ -566,7 +568,7 @@ IF(artvisc%enabled) call CalcArtificialViscosity(U)
 
 END SUBROUTINE TimeStepByExplicitEuler
 
-SUBROUTINE TimeStepByMidPoint(t)
+SUBROUTINE TimeStepByMidpoint(t)
 
 USE MOD_PreProc
 USE MOD_Vector
@@ -583,19 +585,62 @@ IMPLICIT NONE
 
 REAL, INTENT(IN) :: t !! current simulation time
 
+!! The following code is unnecessarily difficult to understand
+!! due to the stupid API of the DG module.
+
 REAL :: Uprev(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N,1:nElems)
 
+!! save initial state
 Uprev = U
 
-!! first stage
+!! slope estimate at initial state
 CALL DGTimeDerivative_weakForm(t)
 
+!! slope estimate at midpoint
 U = Uprev + 0.5*dt*Ut
-
-!! second stage
 CALL DGTimeDerivative_weakForm(t + 0.5*dt)
 
 U = Uprev + dt*Ut
+
+#if PARABOLIC
+IF(artvisc%enabled) call CalcArtificialViscosity(U)
+#endif
+
+END SUBROUTINE
+
+SUBROUTINE TimeStepByHeuner(t)
+
+USE MOD_PreProc
+USE MOD_Vector
+USE MOD_DG           ,ONLY: DGTimeDerivative_weakForm
+USE MOD_DG_Vars      ,ONLY: U,Ut,nTotalU
+USE MOD_TimeDisc_Vars,ONLY: dt
+USE MOD_Mesh_Vars    ,ONLY: nElems
+
+#if PARABOLIC
+USE MOD_ArtificialViscosity, ONLY: artvisc, CalcArtificialViscosity
+#endif
+
+IMPLICIT NONE
+
+REAL, INTENT(IN) :: t !! current simulation time
+
+!! The following code is unnecessarily difficult to understand
+!! due to the stupid API of the DG module.
+
+REAL ::  U_prev(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N,1:nElems)
+REAL :: Ut_prev(1:PP_nVar,0:PP_N,0:PP_N,0:PP_N,1:nElems)
+
+!! save initial state
+ U_prev = U
+Ut_prev = Ut !! already computed
+
+!! slope estimate (explicit Euler)
+U = U_prev + dt*Ut_prev
+CALL DGTimeDerivative_weakForm(t + dt)
+
+!! average of both slopes
+U = U_prev + 0.5*dt*(Ut_prev + Ut)
 
 #if PARABOLIC
 IF(artvisc%enabled) call CalcArtificialViscosity(U)
