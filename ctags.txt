@@ -2735,6 +2735,7 @@ TimeStep	src/equations/navierstokes/calctimestep.f90	/^REAL                     
 TimeStepByExplicitEuler	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByExplicitEuler(/;"	s	module:MOD_TimeDisc
 TimeStepByLSERKK3	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByLSERKK3(/;"	s	module:MOD_TimeDisc
 TimeStepByLSERKW2	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByLSERKW2(/;"	s	module:MOD_TimeDisc
+TimeStepByMidPoint	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByMidPoint(/;"	s	module:MOD_TimeDisc
 TimeStepConv	src/equations/navierstokes/calctimestep.f90	/^REAL                         :: TimeStepConv,/;"	L	function:CALCTIMESTEP	file:
 TimeStepVisc	src/equations/navierstokes/calctimestep.f90	/^REAL                         :: TimeStepConv, TimeStepVisc,/;"	L	function:CALCTIMESTEP	file:
 Time_Block	posti/recordpoints/visualize/fft/spec.f90	/^REAL                            :: Time_Block$/;"	L	subroutine:spec	file:
@@ -2927,7 +2928,7 @@ U_N	src/equations/navierstokes/idealgas/getboundaryflux.f90	/^REAL,POINTER      
 U_NAnalyze	src/analyze/analyze.f90	/^REAL                            :: U_NAnalyze(/;"	L	subroutine:CalcErrorNorms	file:
 U_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: U_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 U_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: U_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
-U_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: U_NAnalyze(/;"	L	subroutine:CalcMachAvg	file:
+U_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: U_NAnalyze /;"	L	subroutine:CalcMachAvg	file:
 U_NVisu	src/output/output.f90	/^REAL,ALLOCATABLE,TARGET       :: U_NVisu(/;"	L	subroutine:Visualize	file:
 U_NVisu_p	src/output/output.f90	/^REAL,POINTER                  :: U_NVisu_p(/;"	L	subroutine:Visualize	file:
 U_P	src/indicator/indicator.f90	/^REAL,POINTER              :: U_P(/;"	L	subroutine:CalcIndicator	file:
@@ -2990,6 +2991,7 @@ UpperBound	src/mpi/mpi.f90	/^INTEGER, INTENT(IN)    :: LowerBound,UpperBound$/;"
 UpperBound	src/mpi/mpi.f90	/^INTEGER,INTENT(IN)          :: UpperBound /;"	L	subroutine:StartReceiveMPIData	file:
 UpperBound	src/mpi/mpi.f90	/^INTEGER,INTENT(IN)          :: UpperBound /;"	L	subroutine:StartSendMPIData	file:
 Uprev	src/timedisc/timedisc.f90	/^REAL :: Uprev(/;"	L	subroutine:TimeStepByExplicitEuler	file:
+Uprev	src/timedisc/timedisc.f90	/^REAL :: Uprev(/;"	L	subroutine:TimeStepByMidPoint	file:
 UseNonDimensionalEqn	src/equations/navierstokes/idealgas/eos.f90	/^LOGICAL :: UseNonDimensionalEqn=/;"	L	subroutine:InitEos	file:
 UserBCFound	src/mesh/mesh_readin.f90	/^LOGICAL,ALLOCATABLE            :: UserBCFound(/;"	L	subroutine:ReadBCs	file:
 UserBlockTmpFile	src/output/output_vars.f90	/^CHARACTER(LEN=255)           :: UserBlockTmpFile=/;"	v	module:MOD_Output_Vars
@@ -6088,7 +6090,7 @@ sJ_N	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_N(/;"	L	subroutine:A
 sJ_N	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_N(/;"	L	subroutine:CalcMachAvg	file:
 sJ_NAnalyze	src/cooling/cooling.f90	/^    REAL    :: sJ_NAnalyze /;"	L	subroutine:ApplyCooling	file:
 sJ_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_NAnalyze /;"	L	subroutine:AnalyzeTestcase	file:
-sJ_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_NAnalyze(/;"	L	subroutine:CalcMachAvg	file:
+sJ_NAnalyze	src/testcase/stirturb/testcase.f90	/^    REAL    :: sJ_NAnalyze /;"	L	subroutine:CalcMachAvg	file:
 sJac	posti/recordpoints/prepare/parametriccoords.f90	/^REAL                  :: F(1:3),eps_F,Xi(1:3),Jac(1:3,1:3),sdetJac,sJac(/;"	L	subroutine:GetParametricCoordinates	file:
 sJac	posti/swapmesh/parametriccoords.f90	/^REAL               :: F(1:3),eps_F,xi(1:3),Jac(1:3,1:3),sJac(/;"	L	subroutine:GetParametricCoordinates	file:
 sJac2	posti/recordpoints/prepare/blprojection.f90	/^REAL                  :: G(2),Xi2(2),Jac2(2,2),sJac2(/;"	L	subroutine:ProjectRPtoBC	file:
@@ -6467,6 +6469,7 @@ t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)      :: t /;"	L	subroutin
 t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)    :: t /;"	L	subroutine:GetBoundaryFVgradientTestcase	file:
 t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)    :: t /;"	L	subroutine:Lifting_GetBoundaryFluxTestcase	file:
 t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByExplicitEuler	file:
+t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByMidPoint	file:
 t	src/timedisc/timedisc.f90	/^REAL,INTENT(IN)  :: t /;"	L	subroutine:TimeStepByLSERKK3	file:
 t	src/timedisc/timedisc.f90	/^REAL,INTENT(IN)  :: t /;"	L	subroutine:TimeStepByLSERKW2	file:
 t	src/timedisc/timedisc_vars.f90	/^REAL             :: t=/;"	v
