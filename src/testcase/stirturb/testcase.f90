@@ -264,7 +264,7 @@ SUBROUTINE TestcaseSource(Ut)
     if (wait_time_steps .gt. st_wait_time_steps) then
         call CalcMachAvg(mach_avg)
         if (mach_avg .lt. st_mach) then
-            force = st_force_base / (1 + exp(st_force_param*(mach_avg - st_mach)))
+            force = st_force_base / (1 + exp(st_force_param*(mach_avg - 0.9*st_mach)))
 
             call OU_time_step()
             call ApplyForcing(force,Ut)
