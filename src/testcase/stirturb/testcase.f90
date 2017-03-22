@@ -264,11 +264,7 @@ SUBROUTINE TestcaseSource(Ut)
     if (wait_time_steps .gt. st_wait_time_steps) then
         call CalcMachAvg(mach_avg)
         if (mach_avg .lt. st_mach) then
-            force = st_force_base
-
-            if (mach_avg .gt. 0.95*st_mach) then
-                force = force * abs(mach_avg-st_mach) / (0.08*st_mach)
-            end if
+            force = st_force_base / (1 + exp(st_force_param*(mach_avg - st_mach)))
 
             call OU_time_step()
             call ApplyForcing(force,Ut)
@@ -394,9 +390,8 @@ SUBROUTINE CalcMachAvg(mach_avg)
 
     INTEGER :: ii,i,j,k,count
 
-    REAL    :: U_NAnalyze(1:PP_nVar, 0:NAnalyze, 0:NAnalyze, 0:NAnalyze)
-
-    REAL    :: sJ_NAnalyze(1, 0:NAnalyze, 0:NAnalyze, 0:NAnalyze)
+    REAL    :: sJ_NAnalyze     (1,         0:NAnalyze, 0:NAnalyze, 0:NAnalyze)
+    REAL    :: U_NAnalyze      (1:PP_nVar, 0:NAnalyze, 0:NAnalyze, 0:NAnalyze)
     REAL    :: sJ_N(1, 0:PP_N, 0:PP_N, 0:PP_N) ! local array for sJ
 
     REAL    :: volu, dens, mass, pres, rmsv, ekin, vels(1:3)
@@ -405,6 +400,7 @@ SUBROUTINE CalcMachAvg(mach_avg)
     REAL    :: sums(1:SUMS_LEN)
     REAL    :: recv(1:SUMS_LEN)
     sums(:) = 0.0
+    recv(:) = 0.0
 
     DO ii = 1,nElems
 
@@ -412,41 +408,38 @@ SUBROUTINE CalcMachAvg(mach_avg)
         IF (FV_Elems(ii).GT.0) THEN ! FV Element
             U_NAnalyze(1:PP_nVar,0:NAnalyze,0:NAnalyze,0:NAnalyze) = U(1:PP_nVar,0:NAnalyze,0:NAnalyze,0:NAnalyze,ii) 
         ELSE
-            ! Interpolate the jacobian to the analyze grid
-            sJ_N(1,:,:,:) = sJ(:,:,:,ii,0)
-            CALL ChangeBasis3D(1, PP_N, NAnalyze, Vdm_GaussN_NAnalyze, sJ_N(1:1,0:PP_N,0:PP_N,0:PP_N), sJ_NAnalyze(1:1,:,:,:))
-
-            ! Interpolate the solution to the analyze grid
-            CALL ChangeBasis3D(PP_nVar, PP_N, NAnalyze, Vdm_GaussN_NAnalyze, U(1:PP_nVar,:,:,:,ii), U_NAnalyze(1:PP_nVar,:,:,:))
-        END IF
-# else
+# endif
         ! Interpolate the jacobian to the analyze grid
         sJ_N(1,:,:,:) = sJ(:,:,:,ii,0)
         CALL ChangeBasis3D(1, PP_N, NAnalyze, Vdm_GaussN_NAnalyze, sJ_N(1:1,0:PP_N,0:PP_N,0:PP_N), sJ_NAnalyze(1:1,:,:,:))
 
         ! Interpolate the solution to the analyze grid
         CALL ChangeBasis3D(PP_nVar, PP_N, NAnalyze, Vdm_GaussN_NAnalyze, U(1:PP_nVar,:,:,:,ii), U_NAnalyze(1:PP_nVar,:,:,:))
+# if FV_ENABLED
+        END IF
 # endif
- 
+
+
         DO k=0,NAnalyze
             DO j=0,NAnalyze
                 DO i=0,NAnalyze
 
 # if FV_ENABLED
                     IF (FV_Elems(ii).GT.0) THEN ! FV Element
-                        !! FIXME: assume unit box
-                        volu = 1/DBLE(nGlobalElems * (NAnalyze+1)**3) 
+                        !! FIXME: asume unit box
+                        volu = 1.0/DBLE(nGlobalElems * (NAnalyze+1)**3) 
                     ELSE
-                        volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)
-                    END IF
-# else
+# endif
                     volu = wGPVolAnalyze(i,j,k)/sJ_NAnalyze(1,i,j,k)
+# if FV_ENABLED
+                    END IF
 # endif
                     dens        = U_NAnalyze(1,i,j,k)
                     mass        = volu * dens
                     vels(1:3)   = U_NAnalyze(2:4,i,j,k)/dens
                     rmsv        = SUM(Vels(1:3)*Vels(1:3))
-                    pres        = KappaM1*(U_NAnalyze(5,i,j,k) - 0.5 * dens * rmsv)
+                    !!pres        = KappaM1*(U_NAnalyze(5,i,j,k) - 0.5 * dens * rmsv)
+                    !!pres        = MERGE(1.e-6, pres, pres < 1.e-6)
 
                     sums(VOLU)  = sums(VOLU) + volu
                     sums(MASS)  = sums(MASS) + mass
@@ -463,7 +456,8 @@ SUBROUTINE CalcMachAvg(mach_avg)
     sums(:) = recv(:)
 #   endif
     
-    mach_avg = SQRT(sums(RMSV)/kappa/sums(PRES))
+    !!mach_avg = SQRT(sums(RMSV)/sums(MASS)/kappa/(sums(PRES)/sums(VOLU)))
+    mach_avg = SQRT(sums(RMSV)/sums(MASS))
 
 END SUBROUTINE CalcMachAvg
 
@@ -692,9 +686,10 @@ SUBROUTINE AnalyzeTestcase(simtime)
     resBuf(incr(count)) = ener
     resBuf(incr(count)) = eint
     resBuf(incr(count)) = ekin
+    resBuf(incr(count)) = SQRT(sums(RMSV) / sums(MASS)) 
     resBuf(incr(count)) = SQRT(sums(RMSV) / kappa / sums(PRES)) 
     resBuf(incr(count)) = mach_max
-    resBuf(incr(count)) = sums(RMSV_MAX)**2
+    !!resBuf(incr(count)) = sums(RMSV_MAX)**2
 
     call write2file(count, resBuf)
 
