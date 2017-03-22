@@ -111,8 +111,8 @@ CASE('explicit-euler')
   TimeDiscType='EXPLICIT-EULER'
 CASE('explicit-midpoint')
   TimeDiscType='EXPLICIT-MIDPOINT'
-CASE('explicit-heuner')
-  TimeDiscType='EXPLICIT-HEUNER'
+CASE('explicit-heun')
+  TimeDiscType='EXPLICIT-HEUN'
 CASE DEFAULT
   CALL CollectiveStop(__STAMP__,&
                       'Unknown method of time discretization: '//TRIM(TimeDiscMethod))
@@ -793,8 +793,8 @@ CASE('explicit-midpoint')
     CFLScaleFV = 1.2285
 #endif /*FV*/
 
-CASE('explicit-heuner')
-    TimeDiscName = 'Explicit Heuner'
+CASE('explicit-heun')
+    TimeDiscName = 'Explicit Heun'
     nRKStages = 2
 
 #if PARABOLIC

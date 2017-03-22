@@ -2733,7 +2733,7 @@ TimeDiscType	src/timedisc/timedisc_vars.f90	/^CHARACTER(LEN=50)   :: TimeDiscTyp
 TimeStamp	src/globals/globals.f90	/^CHARACTER(LEN=255) :: TimeStamp /;"	L	function:TIMESTAMP	file:
 TimeStep	src/equations/navierstokes/calctimestep.f90	/^REAL                         :: TimeStepC/;"	L	function:CALCTIMESTEP	file:
 TimeStepByExplicitEuler	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByExplicitEuler(/;"	s	module:MOD_TimeDisc
-TimeStepByHeuner	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByHeuner(/;"	s	module:MOD_TimeDisc
+TimeStepByHeun	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByHeun(/;"	s	module:MOD_TimeDisc
 TimeStepByLSERKK3	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByLSERKK3(/;"	s	module:MOD_TimeDisc
 TimeStepByLSERKW2	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByLSERKW2(/;"	s	module:MOD_TimeDisc
 TimeStepByMidpoint	src/timedisc/timedisc.f90	/^SUBROUTINE TimeStepByMidpoint(/;"	s	module:MOD_TimeDisc
@@ -2975,7 +2975,7 @@ U_master	src/equations/navierstokes/equation.f90	/^REAL,INTENT(IN)  :: U_master(
 U_master	src/equations/navierstokes/equation.f90	/^REAL,INTENT(OUT)   :: U_master(/;"	L	subroutine:GetConservativeStateSurface	file:
 U_master	src/fv/fv.f90	/^REAL,INTENT(INOUT) :: U_master(/;"	L	subroutine:FV_DGtoFV	file:
 U_masterO	src/dg/dg_vars.f90	/^REAL,ALLOCATABLE                      :: U_masterO(/;"	v	module:MOD_DG_Vars
-U_prev	src/timedisc/timedisc.f90	/^REAL ::  U_prev(/;"	L	subroutine:TimeStepByHeuner	file:
+U_prev	src/timedisc/timedisc.f90	/^REAL ::  U_prev(/;"	L	subroutine:TimeStepByHeun	file:
 U_slave	src/dg/dg_vars.f90	/^REAL,ALLOCATABLE                      :: U_slave(/;"	v	module:MOD_DG_Vars
 U_slave	src/dg/fillflux.f90	/^REAL,INTENT(INOUT) :: U_slave(/;"	L	subroutine:FillFlux	file:
 U_slave	src/equations/navierstokes/equation.f90	/^REAL,INTENT(IN)  :: U_slave(/;"	L	subroutine:GetPrimitiveStateSurface	file:
@@ -3007,7 +3007,7 @@ Ut	src/testcase/stirturb/testcase.f90	/^    REAL,INTENT(INOUT) :: Ut(/;"	L	subro
 Ut	src/testcase/stirturb/testcase.f90	/^    REAL,INTENT(INOUT) :: Ut(/;"	L	subroutine:TestcaseSource	file:
 UtO	src/dg/dg_vars.f90	/^REAL,ALLOCATABLE                      :: UtO(/;"	v	module:MOD_DG_Vars
 Ut_FV	src/fv/fv_volint.f90	/^REAL,INTENT(INOUT) :: Ut_FV(/;"	L	subroutine:FV_VolInt	file:
-Ut_prev	src/timedisc/timedisc.f90	/^REAL :: Ut_prev(/;"	L	subroutine:TimeStepByHeuner	file:
+Ut_prev	src/timedisc/timedisc.f90	/^REAL :: Ut_prev(/;"	L	subroutine:TimeStepByHeun	file:
 Ut_src	src/equations/navierstokes/idealgas/exactfunc.f90	/^REAL                :: Ut_src(/;"	L	subroutine:CalcSource	file:
 Ut_src2	src/equations/navierstokes/idealgas/exactfunc.f90	/^REAL                :: Ut_src2(/;"	L	subroutine:CalcSource	file:
 Ut_temp	src/timedisc/timedisc.f90	/^REAL     :: Ut_temp(/;"	L	subroutine:TimeStepByLSERKW2	file:
@@ -6472,7 +6472,7 @@ t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)      :: t /;"	L	subroutin
 t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)    :: t /;"	L	subroutine:GetBoundaryFVgradientTestcase	file:
 t	src/testcase/stirturb/testcase.f90	/^REAL,INTENT(IN)    :: t /;"	L	subroutine:Lifting_GetBoundaryFluxTestcase	file:
 t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByExplicitEuler	file:
-t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByHeuner	file:
+t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByHeun	file:
 t	src/timedisc/timedisc.f90	/^REAL, INTENT(IN) :: t /;"	L	subroutine:TimeStepByMidpoint	file:
 t	src/timedisc/timedisc.f90	/^REAL,INTENT(IN)  :: t /;"	L	subroutine:TimeStepByLSERKK3	file:
 t	src/timedisc/timedisc.f90	/^REAL,INTENT(IN)  :: t /;"	L	subroutine:TimeStepByLSERKW2	file:

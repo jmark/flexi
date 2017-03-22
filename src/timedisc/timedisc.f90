@@ -97,8 +97,8 @@ CASE('EXPLICIT-EULER')
   TimeStep=>TimeStepByExplicitEuler
 CASE('EXPLICIT-MIDPOINT')
   TimeStep=>TimeStepByMidPoint
-CASE('EXPLICIT-HEUNER')
-  TimeStep=>TimeStepByHeuner
+CASE('EXPLICIT-HEUN')
+  TimeStep=>TimeStepByHeun
 END SELECT
 
 IF(TimeDiscInitIsDone)THEN
@@ -608,7 +608,7 @@ IF(artvisc%enabled) call CalcArtificialViscosity(U)
 
 END SUBROUTINE
 
-SUBROUTINE TimeStepByHeuner(t)
+SUBROUTINE TimeStepByHeun(t)
 
 USE MOD_PreProc
 USE MOD_Vector
