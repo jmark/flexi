@@ -697,6 +697,7 @@ SUBROUTINE AnalyzeTestcase(simtime)
     !!resBuf(incr(count)) = sums(RMSV_MAX)**2
 
     call write2file(count, resBuf)
+    call writeTimestamp()
 
 END SUBROUTINE AnalyzeTestCase
 
@@ -736,6 +737,37 @@ subroutine write2file(count, outBuf)
     CLOSE(ioUnit)
 
 end subroutine write2file
+
+subroutine writeTimeStamp
+
+    USE MOD_Globals
+    USE MOD_TimeDisc_Vars,  ONLY: t,dt
+
+    implicit none
+
+    integer :: values(8)
+    integer :: ioUnit
+    integer :: openStat
+
+    OPEN(NEWUNIT  = ioUnit             , &
+         FILE     = 'profiling.dat'    , &
+         FORM     = 'FORMATTED'        , &
+         STATUS   = 'UNKNOWN'          , &
+         POSITION = 'APPEND'           , &
+         RECL     = 50000              , &
+         IOSTAT   = openStat             )
+
+    IF(openStat.NE.0) THEN
+        CALL abort(__STAMP__, 'ERROR: cannot open "profiling.dat"')
+    END IF
+
+    call date_and_time(values=values)
+
+    WRITE(ioUnit, '(2(ES16.9),8(I8))') t,dt,values
+    CLOSE(ioUnit)
+
+end subroutine writeTimeStamp
+
 
 function incr(n)
 

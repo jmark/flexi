@@ -112,7 +112,7 @@ SWRITE(UNIT_stdOut,'(A)') ' INIT TIMEDISC...'
 TEnd     = GETREAL('TEnd')
 ! Read the normalized CFL number
 CFLScale = GETREAL('CFLScale')
-#if PARABOLIC
+# if PARABOLIC
 ! Read the normalized DFL number
 DFLScale = GETREAL('DFLScale')
 #endif /*PARABOLIC*/
@@ -452,9 +452,9 @@ DO iStage=2,nRKStages
   CALL DGTimeDerivative_weakForm(tStage)
   CALL VAXPBY(nTotalU,Ut_temp,Ut,ConstOut=-RKA(iStage)) !Ut_temp = Ut - Ut_temp*RKA(iStage)
   CALL VAXPBY(nTotalU,U,Ut_temp,ConstIn =b_dt(iStage))  !U       = U + Ut_temp*b_dt(iStage)
-  #if PARABOLIC
+#if PARABOLIC
   IF(artvisc%enabled) call CalcArtificialViscosity(U)
-  #endif
+#endif
 END DO
 CurrentStage=1
 
@@ -531,9 +531,9 @@ DO iStage=2,nRKStages
   CALL VAXPBY(nTotalU,U,S2,ConstOut=RKg1(iStage),ConstIn=RKg2(iStage)) !U = RKg1(iStage)*U + RKg2(iStage)*S2
   CALL VAXPBY(nTotalU,U,Uprev,ConstIn=RKg3(iStage))                !U = U + RKg3(ek)*Uprev
   CALL VAXPBY(nTotalU,U,Ut,ConstIn=b_dt(iStage))                   !U = U + Ut*b_dt(iStage)
-  #if PARABOLIC
+#if PARABOLIC
   IF(artvisc%enabled) call CalcArtificialViscosity(U)
-  #endif
+#endif
 END DO
 CurrentStage=1
 
