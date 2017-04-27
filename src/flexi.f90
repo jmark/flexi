@@ -59,6 +59,7 @@ USE MOD_Restart_Vars      ,ONLY:RestartFile
 USE MOD_StringTools       ,ONLY:STRICMP, GetFileExtension
 
 USE MOD_Cooling,          ONLY: DefineParametersCooling, InitCooling, FinalizeCooling
+USE MOD_BulkMotion,       ONLY: DefineParametersBulkMotion, InitBulkMotion, FinalizeBulkMotion
 
 IMPLICIT NONE
 !----------------------------------------------------------------------------------------------------------------------------------
@@ -99,6 +100,7 @@ CALL DefineParametersFilter()
 CALL DefineParametersOverintegration()
 CALL DefineParametersIndicator()
 CALL DefineParametersCooling()
+CALL DefineParametersBulkMotion()
 #if FV_ENABLED
 CALL DefineParametersFV()
 #endif
@@ -172,6 +174,7 @@ CALL InitMPIvars()
 CALL InitEquation()
 CALL InitDG()
 CALL InitCooling()
+CALL InitBulkMotion()
 #if FV_ENABLED
 CALL InitFV()
 #endif
@@ -211,6 +214,7 @@ CALL FinalizeArtificialViscosity()
 CALL FinalizeFV()
 #endif
 CALL FinalizeCooling()
+CALL FinalizeBulkMotion()
 CALL FinalizeDG()
 CALL FinalizeEquation()
 CALL FinalizeInterpolation()

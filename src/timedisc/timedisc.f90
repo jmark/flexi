@@ -170,6 +170,7 @@ USE MOD_FV
 use MOD_IO_HDF5
 
 USE MOD_Cooling             ,ONLY: cooling, ApplyCooling
+USE MOD_BulkMotion          ,ONLY: BulkMotion, ApplyBulkMotion
 
 IMPLICIT NONE
 !----------------------------------------------------------------------------------------------------------------------------------
@@ -277,6 +278,7 @@ CalcTimeStart=FLEXITIME()
 DO
 
   if (cooling%enabled) call ApplyCooling()
+  if (BulkMotion%enabled) call ApplyBulkMotion()
 
   IF(doCalcIndicator) CALL CalcIndicator(U,t)
 #if FV_ENABLED

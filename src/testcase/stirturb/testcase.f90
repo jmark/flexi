@@ -254,6 +254,10 @@ SUBROUTINE TestcaseSource(Ut)
     INTEGER :: wait_time_steps = 1
     INTEGER :: time_steps_since_last_forcing = 0
 
+    !! analyze output
+    integer :: count = 0
+    real*8, dimension(99) :: resBuf
+
     if (.not. st_active) return
 
     if (t .gt. st_tmax) then
@@ -274,14 +278,22 @@ SUBROUTINE TestcaseSource(Ut)
             call OU_time_step()
             call ApplyForcing(force,Ut)
 
-            SWRITE(UNIT_stdOut,'(A,5(1X,ES20.8))') 'foc: ', t, dt, force, mach_avg
+            !!SWRITE(UNIT_stdOut,'(A,5(1X,ES20.8))') 'foc: ', t, dt, force, mach_avg
 
             time_steps_since_last_forcing = 1
         ELSE
             force = 0.0
             if (st_stop_at_mach) st_active = .FALSE.
-            SWRITE(UNIT_stdOut,'(A,5(1X,ES20.8))') 'NOF: ', t, dt, force, mach_avg
+            !!SWRITE(UNIT_stdOut,'(A,5(1X,ES20.8))') 'NOF: ', t, dt, force, mach_avg
         end if
+
+        count = 0
+        resBuf(incr(count)) = t
+        resBuf(incr(count)) = dt
+        resBuf(incr(count)) = force
+        resBuf(incr(count)) = mach_avg
+        call write2file(st_fp_forcing, count, resBuf)
+     
         wait_time_steps = 1
         
     end if
@@ -696,18 +708,18 @@ SUBROUTINE AnalyzeTestcase(simtime)
     resBuf(incr(count)) = mach_max
     !!resBuf(incr(count)) = sums(RMSV_MAX)**2
 
-    call write2file(count, resBuf)
+    call write2file(st_fp_analyze, count, resBuf)
     call writeTimestamp()
 
 END SUBROUTINE AnalyzeTestCase
 
-subroutine write2file(count, outBuf)
+subroutine write2file(filepath, count, outBuf)
 
-    use MOD_testcase_vars, only: st_outputfp
     USE MOD_Globals
 
     implicit none
 
+    CHARACTER(LEN=255)              :: filepath
     integer,intent(in)              :: count
     real,DIMENSION(:),intent(in)    :: outBuf
 
@@ -719,7 +731,7 @@ subroutine write2file(count, outBuf)
     !!ioUnit = GETFREEUNIT()
 
     OPEN(NEWUNIT  = ioUnit             , &
-         FILE     = TRIM(st_outputfp)  , &
+         FILE     = TRIM(filepath)     , &
          FORM     = 'FORMATTED'        , &
          STATUS   = 'UNKNOWN'          , &
          POSITION = 'APPEND'           , &
@@ -727,7 +739,7 @@ subroutine write2file(count, outBuf)
          IOSTAT   = openStat             )
 
     IF(openStat.NE.0) THEN
-        CALL abort(__STAMP__, 'ERROR: cannot open '// TRIM(st_outputfp))
+        CALL abort(__STAMP__, 'ERROR: cannot open '// TRIM(filepath))
     END IF
 
     !! write nr. of columns to string

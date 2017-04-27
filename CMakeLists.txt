@@ -467,6 +467,7 @@ FILE(GLOB_RECURSE flexiF90 ./src/interpolation/*.f90
                            ./src/output/*.f90
                            ./src/sponge/*.f90
                            ./src/filter/*.f90
+                           ./src/bulkmotion/*.f90
                            ./src/io_hdf5/*.f90
                            ./src/timedisc/*.f90
                            ./src/testcase/${FLEXI_TESTCASE}/*.f90

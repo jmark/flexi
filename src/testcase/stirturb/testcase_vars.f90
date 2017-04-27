@@ -18,7 +18,8 @@ INTEGER            :: ioCounter     = 0     !< current number of buffer items
 INTEGER            :: nWriteStats   = -999  !< Write testcase statistics to file at every n-th AnalyzeTestcase step
 CHARACTER(LEN=255) :: Filename              !< filename to store testcase log data
 
-CHARACTER(LEN=255) :: st_outputfp = 'stirring.dat'
+CHARACTER(LEN=255) :: st_fp_forcing = 'forcing.dat'
+CHARACTER(LEN=255) :: st_fp_analyze = 'forcing_analyze.dat'
 
 !! ========================================================================= !!
 !! Initialization
