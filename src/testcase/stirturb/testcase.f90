@@ -168,6 +168,9 @@ SUBROUTINE InitTestcase
 
     st_wait_time_steps = GETINT('st_wait_time_steps',    '10')
 
+    call InitDataFile(st_fp_analyze)
+    call InitDataFile(st_fp_profile)
+
     SWRITE(UNIT_stdOut,'(A)')' INIT TESTCASE "STIRTURB" DONE!'
     SWRITE(UNIT_StdOut,'(132("-"))')
 

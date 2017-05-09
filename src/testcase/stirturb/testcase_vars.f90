@@ -20,6 +20,7 @@ CHARACTER(LEN=255) :: Filename              !< filename to store testcase log da
 
 CHARACTER(LEN=255) :: st_fp_forcing = 'forcing.dat'
 CHARACTER(LEN=255) :: st_fp_analyze = 'forcing_analyze.dat'
+CHARACTER(LEN=255) :: st_fp_profile = 'profiling.dat'
 
 !! ========================================================================= !!
 !! Initialization

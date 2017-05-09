@@ -310,4 +310,33 @@ GETTIME(FlexiTime)
 END FUNCTION FLEXITIME
 
 
+subroutine InitDataFile(filepath)
+
+    implicit none
+
+    CHARACTER(LEN=255) :: filepath
+
+    integer :: values(8)
+    integer :: ioUnit
+    integer :: openStat
+
+    OPEN(NEWUNIT  = ioUnit             , &
+         FILE     = TRIM(filepath)     , &
+         FORM     = 'FORMATTED'        , &
+         STATUS   = 'UNKNOWN'          , &
+         POSITION = 'APPEND'           , &
+         RECL     = 50000              , &
+         IOSTAT   = openStat             )
+
+    IF(openStat.NE.0) THEN
+        CALL abort(__STAMP__, 'ERROR: cannot open '// TRIM(filepath))
+    END IF
+
+    call date_and_time(values=values)
+
+    WRITE(ioUnit, '(a,8(I8))') '#timestamp',values
+    CLOSE(ioUnit)
+
+end subroutine
+
 END MODULE MOD_Globals

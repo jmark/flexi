@@ -35,6 +35,8 @@ SUBROUTINE InitBulkMotion
     SWRITE(UNIT_stdOut,'(A)') ' INIT BulkMotion ...'
 
     BulkMotion%enabled = GETLOGICAL('BulkMotion%enabled','F')
+    
+    call InitDataFile(bulkmotion%outputfp)
 
     SWRITE(UNIT_stdOut,'(A)')' INIT BulkMotion DONE!'
     SWRITE(UNIT_StdOut,'(132("-"))')

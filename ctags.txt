@@ -1332,6 +1332,7 @@ InitCooling	src/cooling/cooling.f90	/^SUBROUTINE InitCooling$/;"	s
 InitDG	src/dg/dg.f90	/^INTERFACE InitDG$/;"	i	module:MOD_DG
 InitDG	src/dg/dg.f90	/^SUBROUTINE InitDG(/;"	s	module:MOD_DG
 InitDGbasis	src/dg/dg.f90	/^SUBROUTINE InitDGbasis(/;"	s	module:MOD_DG
+InitDataFile	src/globals/globals.f90	/^subroutine InitDataFile(/;"	s	module:MOD_Globals
 InitEOS	src/equations/navierstokes/idealgas/eos.f90	/^INTERFACE InitEOS$/;"	i	module:MOD_EOS
 InitEddyVisc	src/equations/navierstokes/eddyVisc/eddyVisc.f90	/^SUBROUTINE InitEddyVisc(/;"	s	module:MOD_EddyVisc
 InitEos	src/equations/navierstokes/idealgas/eos.f90	/^SUBROUTINE InitEos(/;"	s	module:MOD_EOS
@@ -3901,6 +3902,7 @@ filename	src/globals/globals.f90	/^CHARACTER(LEN=*),INTENT(IN) :: filename /;"	L
 filename	src/output/output.f90	/^      CHARACTER(KIND=C_CHAR) :: filename(/;"	L	subroutine:insert_userblock	file:
 filename	src/readintools/readintools.f90	/^CHARACTER(LEN=255),INTENT(IN) :: filename /;"	L	subroutine:ExtractParameterFile	file:
 filename	src/readintools/stringtools.f90	/^CHARACTER(LEN=*),INTENT(IN)  :: filename$/;"	L	function:GetFileExtension	file:
+filepath	src/globals/globals.f90	/^    CHARACTER(LEN=255) :: filepath$/;"	L	subroutine:InitDataFile	file:
 filepath	src/testcase/stirturb/testcase.f90	/^    CHARACTER(LEN=255)              :: filepath$/;"	L	subroutine:write2file	file:
 fillMeshInfo	src/mesh/prepare_mesh.f90	/^INTERFACE fillMeshInfo$/;"	i	module:MOD_Prepare_Mesh
 fillMeshInfo	src/mesh/prepare_mesh.f90	/^SUBROUTINE fillMeshInfo(/;"	s	module:MOD_Prepare_Mesh
@@ -4828,7 +4830,9 @@ int_in	src/readintools/readintools.f90	/^INTEGER         ,INTENT(IN)    :: int_i
 interpolateFromTree	src/mesh/mesh_vars.f90	/^LOGICAL          :: interpolateFromTree /;"	v	module:MOD_Mesh_Vars
 ioCounter	src/testcase/stirturb/testcase_vars.f90	/^INTEGER            :: ioCounter /;"	v	module:MOD_TestCase_Vars
 ioUnit	src/bulkmotion/main.f90	/^    integer :: ioUnit$/;"	L	subroutine:write2file	file:
+ioUnit	src/cooling/cooling.f90	/^    integer :: ioUnit$/;"	L	subroutine:InitCooling	file:
 ioUnit	src/cooling/cooling.f90	/^    integer :: ioUnit$/;"	L	subroutine:write2file	file:
+ioUnit	src/globals/globals.f90	/^    integer :: ioUnit$/;"	L	subroutine:InitDataFile	file:
 ioUnit	src/indicator/indicator.f90	/^integer :: ioUnit$/;"	L	function:IndMarvin	file:
 ioUnit	src/io_hdf5/hdf5_output.f90	/^INTEGER                  :: stat,ioUnit$/;"	L	subroutine:FlushFiles	file:
 ioUnit	src/mesh/prepare_mesh.f90	/^INTEGER               :: iNbProc,ioUnit,/;"	L	subroutine:setLocalSideIDs	file:
@@ -5833,7 +5837,9 @@ op_ne_CH_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_CH
 op_ne_VS_CH	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_CH /;"	f	module:MOD_ISO_VARYING_STRING
 op_ne_VS_VS	src/readintools/isovaryingstring.f90	/^  elemental function op_ne_VS_VS /;"	f	module:MOD_ISO_VARYING_STRING
 openStat	src/bulkmotion/main.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
+openStat	src/cooling/cooling.f90	/^    integer :: openStat$/;"	L	subroutine:InitCooling	file:
 openStat	src/cooling/cooling.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
+openStat	src/globals/globals.f90	/^    integer :: openStat$/;"	L	subroutine:InitDataFile	file:
 openStat	src/indicator/indicator.f90	/^integer :: openStat$/;"	L	function:IndMarvin	file:
 openStat	src/output/output.f90	/^INTEGER                        :: openStat /;"	L	subroutine:OutputToFile	file:
 openStat	src/testcase/stirturb/testcase.f90	/^    integer :: openStat$/;"	L	subroutine:write2file	file:
@@ -6280,6 +6286,7 @@ st_force_base	src/testcase/stirturb/testcase_vars.f90	/^real*8 :: st_force_base$
 st_force_param	src/testcase/stirturb/testcase_vars.f90	/^real*8 :: st_force_param$/;"	v	module:MOD_TestCase_Vars
 st_fp_analyze	src/testcase/stirturb/testcase_vars.f90	/^CHARACTER(LEN=255) :: st_fp_analyze /;"	v	module:MOD_TestCase_Vars
 st_fp_forcing	src/testcase/stirturb/testcase_vars.f90	/^CHARACTER(LEN=255) :: st_fp_forcing /;"	v	module:MOD_TestCase_Vars
+st_fp_profile	src/testcase/stirturb/testcase_vars.f90	/^CHARACTER(LEN=255) :: st_fp_profile /;"	v	module:MOD_TestCase_Vars
 st_g0	src/testcase/stirturb/testcase_vars.f90	/^real*8 :: st_g0$/;"	v	module:MOD_TestCase_Vars
 st_injection_scale	src/testcase/stirturb/testcase_vars.f90	/^real*8 :: st_injection_scale$/;"	v	module:MOD_TestCase_Vars
 st_kmax	src/testcase/stirturb/testcase_vars.f90	/^real*8 :: st_kmin, st_kmax$/;"	v	module:MOD_TestCase_Vars
@@ -6731,6 +6738,7 @@ value	src/readintools/readintools.f90	/^REAL                                 :: 
 value	src/readintools/readintools.f90	/^REAL                                 :: value(/;"	L	function:GETREALARRAY	file:
 value	src/readintools/stringtools.f90	/^CHARACTER(LEN=255),INTENT(IN)  :: value$/;"	L	function:ISINT	file:
 value	src/readintools/stringtools.f90	/^INTEGER,INTENT(IN)  :: value$/;"	L	function:INTTOSTR	file:
+values	src/globals/globals.f90	/^    integer :: values(/;"	L	subroutine:InitDataFile	file:
 values	src/output/output_vtk.f90	/^REAL(C_DOUBLE),ALLOCATABLE,TARGET,INTENT(IN) :: values(/;"	L	subroutine:WriteDataToVTK_array	file:
 values	src/readintools/stringtools.f90	/^INTEGER,INTENT(IN)            :: values(/;"	L	function:KEYVALUE	file:
 values	src/testcase/stirturb/testcase.f90	/^    integer :: values(/;"	L	subroutine:writeTimeStamp	file:

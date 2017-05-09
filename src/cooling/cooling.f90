@@ -36,11 +36,16 @@ SUBROUTINE InitCooling
 
     IMPLICIT NONE
 
+    integer :: ioUnit
+    integer :: openStat
+
     SWRITE(UNIT_StdOut,'(132("-"))')
     SWRITE(UNIT_stdOut,'(A)') ' INIT Cooling ...'
 
     cooling%enabled = GETLOGICAL('cooling%enabled','F')
     cooling%polytropicConst = GETREAL('cooling%polytropicConst','0.6')
+
+    call InitDataFile(cooling%outputfp)
 
     SWRITE(UNIT_stdOut,'(A)')' INIT Cooling DONE!'
     SWRITE(UNIT_StdOut,'(132("-"))')
