@@ -320,6 +320,8 @@ subroutine InitDataFile(filepath)
     integer :: ioUnit
     integer :: openStat
 
+    IF (.not. MPIRoot) RETURN
+
     OPEN(NEWUNIT  = ioUnit             , &
          FILE     = TRIM(filepath)     , &
          FORM     = 'FORMATTED'        , &
